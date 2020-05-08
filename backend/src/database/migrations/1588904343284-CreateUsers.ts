@@ -9,7 +9,7 @@ export default class CreateUsers1588904343284 implements MigrationInterface {
           columns: [
             {
               name: 'id',
-              type: 'varchar',
+              type: 'uuid',
               isPrimary: true,
               generationStrategy: 'uuid',
               default: 'uuid_generate_v4()'
@@ -36,7 +36,7 @@ export default class CreateUsers1588904343284 implements MigrationInterface {
             }
           ]
         }
-      ))
+      ));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
