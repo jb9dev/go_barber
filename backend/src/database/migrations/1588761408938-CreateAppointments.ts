@@ -17,13 +17,19 @@ export default class CreateAppointments1588761408938 implements MigrationInterfa
             {
               name: 'provider',
               type: 'varchar',
-              isNullable: false,
             },
             {
               name: 'date',
               type: 'timestamp with time zone',
-              isNullable: false,
-            }
+            },
+            {
+              name: 'created_at',
+              type: 'timestamp',
+            },
+            {
+              name: 'updated_at',
+              type: 'timestamp',
+            },
           ]
         })
       );
