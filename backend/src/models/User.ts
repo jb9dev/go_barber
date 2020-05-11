@@ -3,28 +3,28 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
- } from 'typeorm'
+  UpdateDateColumn,
+} from 'typeorm';
 
- @Entity('user')
- class User {
-   @PrimaryGeneratedColumn('uuid')
-   id: String;
+@Entity('users')
+class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-   @Column()
-   name: String;
+  @Column()
+  name: string;
 
-   @Column()
-   email: String;
+  @Column()
+  email: string;
 
-   @Column()
-   password: String;
+  @Column()
+  password: string;
 
-   @CreateDateColumn()
-   created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-   @UpdateDateColumn()
-   updated_at: Date;
- }
+  @UpdateDateColumn()
+  updated_at: Date;
+}
 
- export default User;
+export default User;
