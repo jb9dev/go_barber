@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
+import authConfig from '../config/auth';
 
 interface RequestDTO {
   email: string;
@@ -18,6 +19,7 @@ class AuthenicateUserService {
   public async execute({ email, password }: RequestDTO): Promise<ResponseDTO> {
     const sessionsRepository = getRepository(User);
     const user = await sessionsRepository.findOne({ where: { email } });
+    const { secret, expiresIn } = authConfig.jwt;
 
     if (!user) {
       throw Error('User or password is invalid');
@@ -29,9 +31,9 @@ class AuthenicateUserService {
       throw Error('User or password is invalid');
     }
 
-    const token = sign({}, 'dcdf784fa11cc0de0c25cf3e56209058', {
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn,
     });
 
     delete user.password;
