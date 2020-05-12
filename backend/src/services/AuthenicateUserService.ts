@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
+import AppError from '../errors/AppError';
 import User from '../models/User';
 import authConfig from '../config/auth';
 
@@ -22,13 +23,13 @@ class AuthenicateUserService {
     const { secret, expiresIn } = authConfig.jwt;
 
     if (!user) {
-      throw Error('User or password is invalid');
+      throw new AppError('User or password is invalid', 401);
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw Error('User or password is invalid');
+      throw new AppError('User or password is invalid', 401);
     }
 
     const token = sign({}, secret, {
