@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
-
 import uploadConfig from '../config/upload';
+
 import appointmentsRouter from './appointments.routes';
 import usersRouter from './users.routes';
 import sessionsRouter from './session.routes';
