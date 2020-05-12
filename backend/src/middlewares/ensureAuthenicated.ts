@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
+import AppError from '../errors/AppError';
 import authConfig from '../config/auth';
 
 interface AuthToken {
@@ -18,11 +19,11 @@ export default function ensureAuthenicated(
   const { secret } = authConfig.jwt;
 
   if (!authorization) {
-    throw Error('JWT token is missing.');
+    throw new AppError('JWT token is missing.', 401);
   }
 
   try {
-    const [, token] = authorization.split(' ');
+    const [_, token] = authorization.split(' ');
     const decoded = verify(token, secret);
     const { sub } = decoded as AuthToken;
 
@@ -30,7 +31,7 @@ export default function ensureAuthenicated(
       id: sub,
     };
   } catch {
-    throw new Error('JWT token is not valid');
+    throw new AppError('JWT token is not valid', 401);
   }
 
   return next();
