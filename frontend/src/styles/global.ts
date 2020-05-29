@@ -1,5 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { colors } from './variables';
+
+const { light, secondary } = colors;
+
 export default createGlobalStyle`
   * {
     margin: 0;
@@ -8,8 +12,19 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body, input, button {
+    font-family: 'Roboto Slab', Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 500;
+  }
+
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: ${light};
+    background-color: ${secondary};
+    -webkit-font-smoothing: antialiased;
   }
 
   button {
