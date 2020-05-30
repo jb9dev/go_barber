@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
 import logoImg from '../../assets/logo.svg';
-import SignInBackgroundImg from '../../assets/sign-in-background.png';
 
 import { Container, Content, BackgroundImg } from './styles';
 
@@ -19,12 +19,17 @@ const SingIn: React.FC = () => (
         <input type="email" placeholder="E-mail"/>
         <input type="password" placeholder="Senha"/>
         <button type="submit">Entrar</button>
-        <a href="forgot-password">Esqueci minha senha</a>
+        <Link
+          to="forgot-password"
+          className="forgot-password"
+        >
+          Esqueci minha senha
+        </Link>
       </form>
-      <a href="register">
+      <Link to="register" className="register">
         <FiLogIn />
         Criar conta
-      </a>
+      </Link>
     </Content>
     <BackgroundImg />
   </Container>
