@@ -71,7 +71,7 @@ export const Content = styled.div`
       }
     }
 
-    a[href="forgot-password"] {
+    a.forgot-password {
       display: block;
       margin-top: 30px;
       color: ${light2};
@@ -85,7 +85,7 @@ export const Content = styled.div`
     }
   }
 
-  a[href="register"] {
+  a.register {
     display: flex;
     margin: 0 auto;
     align-items: center;
