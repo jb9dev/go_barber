@@ -70,5 +70,5 @@ export const BackgroundImg = styled.div`
   display: flex;
   flex: 1;
   background: url(${SignInBackground}) no-repeat;
-  background-size: cover;
+  background-size: 110%;
 `;
