@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
@@ -11,9 +11,9 @@ import logoImg from '../../assets/logo.svg';
 import { Container, Content, BackgroundImg } from './styles';
 
 const SingIn: React.FC = () => {
-  const handleSubmit = (data: object): void => {
+  const handleSubmit = useCallback((data: object): void => {
     console.log(data)
-  };
+  }, []);
 
   return (
     <Container>
