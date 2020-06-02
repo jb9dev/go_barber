@@ -34,43 +34,6 @@ export const Content = styled.div`
       font-weight: 500;
     }
 
-    input, button {
-      border-radius: 6px;
-    }
-
-    input {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      color: ${light};
-      background-color: ${dark};
-      border: 1px solid ${dark};
-
-      &::placeholder {
-        color: ${grey};
-      }
-
-      + input {
-        margin-top: 10px;
-      }
-    }
-
-    button {
-      width: 100%;
-      height: 47px;
-      margin-top: 20px;
-      padding: 0 16px;
-      color: ${secondary};
-      font-weight: 500;
-      background-color: ${primary};
-      border: 0;
-      transition: background-color 200ms ease-in;
-
-      &:hover {
-        background-color: ${shade(0.2, primary)};
-      }
-    }
-
     a.forgot-password {
       display: block;
       margin-top: 30px;
