@@ -33,13 +33,13 @@ const SingIn: React.FC = () => (
         />
         <Button type="submit">Entrar</Button>
         <Link
-          to="forgot-password"
+          to="/forgot-password"
           className="forgot-password"
         >
           Esqueci minha senha
         </Link>
       </form>
-      <Link to="register" className="register">
+      <Link to="/register" className="register">
         <FiLogIn />
         Criar conta
       </Link>
