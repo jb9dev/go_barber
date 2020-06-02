@@ -1,10 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors } from '../../styles/variables';
 
-const { dark, grey, light } = colors;
+const { dark, grey, light, primary } = colors;
 
-export const Container = styled.div`
+interface ContainerProps {
+  isFocused: boolean;
+  isFilled: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   width: 100%;
   padding: 12px;
@@ -14,6 +19,14 @@ export const Container = styled.div`
   background-color: ${dark};
   border: 1px solid ${dark};
   border-radius: 6px;
+
+  ${ ({ isFocused }) => isFocused && css`
+    border-color: ${primary};
+  `}
+
+  ${ ({ isFilled, isFocused }) => (isFocused || isFilled) && css`
+    color: ${primary};
+  `}
 
   + div {
     margin-top: 10px;
