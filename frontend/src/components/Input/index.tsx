@@ -41,14 +41,17 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon,...props }) => {
 
   return (
     <Container isFocused={isFocused} isFilled={isFilled}>
-      { Icon && <Icon /> }
-      <input
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        ref={inputRef}
-        {...props}
-      />
+      <div className="input-wrapper">
+        { Icon && <Icon /> }
+        <input
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          defaultValue={defaultValue}
+          ref={inputRef}
+          {...props}
+        />
+      </div>
+      <p className="error-message">{error}</p>
     </Container>
   )
 };
