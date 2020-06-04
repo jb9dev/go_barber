@@ -7,8 +7,11 @@ import React, {
 } from 'react';
 import { useField } from '@unform/core';
 import { IconBaseProps } from 'react-icons';
+import { FiAlertCircle } from 'react-icons/fi';
 
-import { Container } from './styles';
+import { colors } from '../../styles/variables'
+import { Container, Error } from './styles';
+
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -40,18 +43,18 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon,...props }) => {
   }, []);
 
   return (
-    <Container isFocused={isFocused} isFilled={isFilled}>
-      <div className="input-wrapper">
-        { Icon && <Icon /> }
-        <input
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          defaultValue={defaultValue}
-          ref={inputRef}
-          {...props}
-        />
-      </div>
-      <p className="error-message">{error}</p>
+    <Container hasError={!!error} isFocused={isFocused} isFilled={isFilled}>
+      { Icon && <Icon /> }
+      <input
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        defaultValue={defaultValue}
+        ref={inputRef}
+        {...props}
+      />
+      { error && <Error title={error}>
+        <FiAlertCircle color={colors.red} size={20} />
+      </Error> }
     </Container>
   )
 };
