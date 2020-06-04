@@ -5,7 +5,7 @@ import { colors } from '../../styles/variables';
 
 import SignUpBackground from '../../assets/sign-up-background.png';
 
-const { primary, secondary, dark, grey, light, light2 } = colors;
+const { light2 } = colors;
 
 export const Container = styled.div`
   display: flex;
