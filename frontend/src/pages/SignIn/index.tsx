@@ -19,7 +19,7 @@ const SingIn: React.FC = () => {
     try {
       const schema = Yup.object().shape({
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().min(6, 'Senha obrigatória com mínimo de 6 caracteres')
+        password: Yup.string().min(6, 'Senha obrigatória')
       });
 
       await schema.validate(data, {
