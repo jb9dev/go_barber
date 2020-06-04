@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors'
 import 'express-async-errors';
 
 import AppError from './errors/AppError';
@@ -9,6 +10,7 @@ import './database';
 
 const server = express();
 
+server.use(cors());
 server.use(express.json());
 server.use(routes);
 
