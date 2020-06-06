@@ -5,7 +5,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import AuthContext from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -15,11 +15,17 @@ import logoImg from '../../assets/logo.svg';
 
 import { Container, Content, BackgroundImg } from './styles';
 
+interface SignUpFromData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { name, email } = useContext(AuthContext);
+  const { name, email, signUp } = useContext(AuthContext);
 
-  const handleSubmit = useCallback( async (data: object) => {
+  const handleSubmit = useCallback( async (data: SignUpFromData) => {
 
     try {
       formRef.current?.setErrors({});
@@ -35,6 +41,7 @@ const SingUp: React.FC = () => {
       });
 
       console.log('data: ', data);
+      signUp(data);
     } catch(err) {
       console.error(err)
 
@@ -42,7 +49,7 @@ const SingUp: React.FC = () => {
       console.log('getValidationErrors: ', errors);
       formRef.current?.setErrors(errors);
     }
-  }, []);
+  }, [signUp]);
 
   return (
     <Container>
