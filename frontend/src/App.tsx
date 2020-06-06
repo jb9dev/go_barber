@@ -1,20 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
 
-import AuthContext from './context/AuthContext'
+import { AuthProvider } from './context/AuthContext'
 import GlobalStyle from './styles/global';
 import Routes from './routes/index'
 
 const App: React.FC = () => (
   <React.Fragment>
-    <AuthContext.Provider value={{
-      email: 'jean@gmail.com',
-      name: 'Jean'
-    }}>
+    <AuthProvider>
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
-    </AuthContext.Provider>
+    </AuthProvider>
       <GlobalStyle />
   </React.Fragment>
 )
