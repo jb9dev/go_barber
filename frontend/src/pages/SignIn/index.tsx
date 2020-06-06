@@ -1,9 +1,11 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+
+import AuthContext from '../../context/AuthContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -15,6 +17,8 @@ import { Container, Content, BackgroundImg } from './styles';
 
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { email } = useContext(AuthContext);
+
   const handleSubmit = useCallback( async (data: object) => {
     try {
       const schema = Yup.object().shape({
@@ -50,6 +54,7 @@ const SingIn: React.FC = () => {
             type="email"
             placeholder="E-mail"
             icon={FiMail}
+            defaultValue={email}
           />
           <Input
             name="password"
