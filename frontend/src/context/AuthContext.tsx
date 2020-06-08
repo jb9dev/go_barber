@@ -1,6 +1,11 @@
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 import api from '../services/api';
+
+interface AuthData {
+  token: string;
+  user: object;
+}
 
 interface SignInCredentials {
   email: string;
@@ -14,8 +19,7 @@ interface SignUpCredentials {
 }
 
 interface AuthContextData {
-  name: string;
-  email: string;
+  user: object,
   signIn(credentials: SignInCredentials): Promise<void>
   signUp(credentials: SignUpCredentials): Promise<void>
 }
@@ -23,10 +27,25 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
+  const [data, setData] = useState(() => {
+    const token = localStorage.getItem('@GoBarber:Token');
+    const user = localStorage.getItem('@GoBarber:User');
+
+    if(token && user) {
+      return { token, user: JSON.parse(user)}
+    }
+
+    return {} as AuthData;
+  })
+
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password});
+    const { token, user } = response.data;
 
-    console.log('response: ', response);
+    localStorage.setItem('@GoBarber:Token', token);
+    localStorage.setItem('@GoBarber:User', JSON.stringify(user));
+
+    setData({token, user});
   }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
@@ -37,8 +56,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{
-      name: 'Jean',
-      email: 'jean@gmail.com',
+      user: data.user,
       signIn,
       signUp,
     }}>
