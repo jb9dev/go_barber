@@ -1,8 +1,8 @@
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useState, useContext } from 'react';
 
 import api from '../services/api';
 
-interface AuthData {
+interface AuthState {
   token: string;
   user: object;
 }
@@ -19,9 +19,10 @@ interface SignUpCredentials {
 }
 
 interface AuthContextData {
-  user: object,
-  signIn(credentials: SignInCredentials): Promise<void>
-  signUp(credentials: SignUpCredentials): Promise<void>
+  user: object;
+  signIn(credentials: SignInCredentials): Promise<void>;
+  signUp(credentials: SignUpCredentials): Promise<void>;
+  signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -35,18 +36,8 @@ const AuthProvider: React.FC = ({ children }) => {
       return { token, user: JSON.parse(user)}
     }
 
-    return {} as AuthData;
+    return {} as AuthState;
   })
-
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', { email, password});
-    const { token, user } = response.data;
-
-    localStorage.setItem('@GoBarber:Token', token);
-    localStorage.setItem('@GoBarber:User', JSON.stringify(user));
-
-    setData({token, user});
-  }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
     const response = await api.post('users', { name, email, password});
@@ -54,15 +45,44 @@ const AuthProvider: React.FC = ({ children }) => {
     console.log('response: ', response);
   }, []);
 
+  const signIn = useCallback(async ({ email, password }) => {
+    const response = await api.post('sessions', { email, password});
+    const { token, user } = response.data;
+    console.log('user: ', user);
+
+    localStorage.setItem('@GoBarber:Token', token);
+    localStorage.setItem('@GoBarber:User', JSON.stringify(user));
+
+    setData({token, user});
+  }, []);
+
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@GoBarber:Token');
+    localStorage.removeItem('@GoBarber:User');
+
+    setData({} as AuthState);
+  }, []);
+
   return (
     <AuthContext.Provider value={{
       user: data.user,
       signIn,
       signUp,
+      signOut,
     }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export { AuthContext, AuthProvider };
+function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
+
+  if(!context) {
+    throw new Error('useAuth must be used within as AuthProvider');
+  }
+
+  return context;
+}
+
+export { AuthProvider, useAuth };
