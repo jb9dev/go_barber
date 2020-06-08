@@ -22,7 +22,7 @@ interface SignInFormData {
 
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signIn, email } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   const handleSubmit = useCallback( async (data: SignInFormData) => {
     try {
@@ -60,7 +60,6 @@ const SingIn: React.FC = () => {
             type="email"
             placeholder="E-mail"
             icon={FiMail}
-            defaultValue={email}
           />
           <Input
             name="password"

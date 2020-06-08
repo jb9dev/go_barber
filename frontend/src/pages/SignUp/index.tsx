@@ -23,7 +23,7 @@ interface SignUpFromData {
 
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { name, email, signUp } = useContext(AuthContext);
+  const { signUp } = useContext(AuthContext);
 
   const handleSubmit = useCallback( async (data: SignUpFromData) => {
 
@@ -67,14 +67,12 @@ const SingUp: React.FC = () => {
             type="text"
             placeholder="Nome"
             icon={FiUser}
-            defaultValue={name}
           />
           <Input
             name="email"
             type="email"
             placeholder="E-mail"
             icon={FiMail}
-            defaultValue={email}
           />
           <Input
             name="password"
