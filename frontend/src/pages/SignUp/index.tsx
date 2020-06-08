@@ -1,11 +1,11 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import { AuthContext } from '../../context/AuthContext'
+import { useAuth } from '../../hooks/AuthContext'
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -23,7 +23,7 @@ interface SignUpFromData {
 
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signUp } = useContext(AuthContext);
+  const { signUp } = useAuth();
 
   const handleSubmit = useCallback( async (data: SignUpFromData) => {
 
@@ -41,7 +41,8 @@ const SingUp: React.FC = () => {
       });
 
       console.log('data: ', data);
-      signUp(data);
+      await signUp(data);
+      formRef.current?.reset();
     } catch(err) {
       console.error(err)
 
