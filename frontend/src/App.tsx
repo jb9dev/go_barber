@@ -9,7 +9,6 @@ const App: React.FC = () => (
   <React.Fragment>
     <BrowserRouter>
       <Routes />
-      <ToastContainer />
     </BrowserRouter>
     <GlobalStyle />
   </React.Fragment>
