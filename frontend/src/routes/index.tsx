@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { AuthProvider } from '../context/AuthContext'
+import { AuthProvider } from '../hooks/AuthContext'
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
