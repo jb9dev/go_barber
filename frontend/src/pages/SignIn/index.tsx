@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -23,6 +24,7 @@ interface SignInFormData {
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback( async (data: SignInFormData) => {
     try {
@@ -40,11 +42,18 @@ const SingIn: React.FC = () => {
       formRef.current?.reset();
     } catch(err) {
       console.error(err);
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      }
 
-      const errors = getValidationErrors(err);
-      formRef.current?.setErrors(errors);
+      addToast({
+        type: 'error',
+        title: 'Login inválido',
+        description: 'Ocorreu um erro ao realizar o login, verifique as credenciais',
+      })
     }
-  }, [signIn]);
+  }, [addToast, signIn]);
 
   return (
     <Container>
