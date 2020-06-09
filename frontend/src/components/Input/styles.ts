@@ -41,6 +41,7 @@ export const Container = styled.div<ContainerProps>`
 
   svg {
     margin-right: 16px;
+    flex-shrink: 0;
   }
 
   input {
