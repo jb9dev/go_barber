@@ -14,7 +14,7 @@ import getValidationErrors from '../../utils/getValidationErrors'
 
 import logoImg from '../../assets/logo.svg';
 
-import { Container, Content, BackgroundImg } from './styles';
+import { Container, Content, AnimationContainer, BackgroundImg } from './styles';
 
 interface SignInFormData {
   email: string;
@@ -45,6 +45,7 @@ const SingIn: React.FC = () => {
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
+        return;
       }
 
       addToast({
@@ -58,37 +59,39 @@ const SingIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img
-          src={logoImg}
-          alt="Logo Awesome Go Barber Haircuts and shaves"
-          title="Logo Go Barber"
-        />
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça o seu logon</h1>
-          <Input
-            name="email"
-            type="email"
-            placeholder="E-mail"
-            icon={FiMail}
+        <AnimationContainer>
+          <img
+            src={logoImg}
+            alt="Logo Awesome Go Barber Haircuts and shaves"
+            title="Logo Go Barber"
           />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            icon={FiLock}
-          />
-          <Button type="submit">Entrar</Button>
-          <Link
-            to="/forgot-password"
-            className="forgot-password"
-          >
-            Esqueci minha senha
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça o seu logon</h1>
+            <Input
+              name="email"
+              type="email"
+              placeholder="E-mail"
+              icon={FiMail}
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Senha"
+              icon={FiLock}
+            />
+            <Button type="submit">Entrar</Button>
+            <Link
+              to="/forgot-password"
+              className="forgot-password"
+            >
+              Esqueci minha senha
+            </Link>
+          </Form>
+          <Link to="/register" className="register">
+            <FiLogIn />
+            Criar conta
           </Link>
-        </Form>
-        <Link to="/register" className="register">
-          <FiLogIn />
-          Criar conta
-        </Link>
+        </AnimationContainer>
       </Content>
       <BackgroundImg />
     </Container>

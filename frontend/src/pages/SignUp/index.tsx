@@ -13,7 +13,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
 
-import { Container, Content, BackgroundImg } from './styles';
+import { Container, Content, AnimationContainer, BackgroundImg } from './styles';
 
 interface SignUpFromData {
   name: string;
@@ -56,37 +56,40 @@ const SingUp: React.FC = () => {
     <Container>
       <BackgroundImg />
       <Content>
-        <img
-          src={logoImg}
-          alt="Logo Awesome Go Barber Haircuts and shaves"
-          title="Logo Go Barber"
-        />
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça o seu cadastro</h1>
-          <Input
-            name="name"
-            type="text"
-            placeholder="Nome"
-            icon={FiUser}
+        <AnimationContainer>
+
+          <img
+            src={logoImg}
+            alt="Logo Awesome Go Barber Haircuts and shaves"
+            title="Logo Go Barber"
           />
-          <Input
-            name="email"
-            type="email"
-            placeholder="E-mail"
-            icon={FiMail}
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Senha"
-            icon={FiLock}
-          />
-          <Button type="submit">Entrar</Button>
-        </Form>
-        <Link to="/" className="back-to-logon">
-          <FiArrowLeft />
-          Voltar para logon
-        </Link>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça o seu cadastro</h1>
+            <Input
+              name="name"
+              type="text"
+              placeholder="Nome"
+              icon={FiUser}
+            />
+            <Input
+              name="email"
+              type="email"
+              placeholder="E-mail"
+              icon={FiMail}
+            />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Senha"
+              icon={FiLock}
+            />
+            <Button type="submit">Entrar</Button>
+          </Form>
+          <Link to="/" className="back-to-logon">
+            <FiArrowLeft />
+            Voltar para logon
+          </Link>
+        </AnimationContainer>
       </Content>
 
     </Container>
