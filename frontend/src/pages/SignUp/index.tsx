@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -24,6 +24,7 @@ interface SignUpFromData {
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signUp } = useAuth();
+  const history = useHistory();
 
   const handleSubmit = useCallback( async (data: SignUpFromData) => {
 
@@ -40,9 +41,9 @@ const SingUp: React.FC = () => {
         abortEarly: false,
       });
 
-      console.log('data: ', data);
       await signUp(data);
       formRef.current?.reset();
+      history.push('/dashboard');
     } catch(err) {
       console.error(err)
       if(err instanceof Yup.ValidationError) {
@@ -50,7 +51,7 @@ const SingUp: React.FC = () => {
         formRef.current?.setErrors(errors);
       }
     }
-  }, [signUp]);
+  }, [signUp, history]);
 
   return (
     <Container>
