@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -24,13 +24,14 @@ interface SignInFormData {
 const SingIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signIn } = useAuth();
+  const history = useHistory();
   const { addToast } = useToast();
 
   const handleSubmit = useCallback( async (data: SignInFormData) => {
     try {
       const schema = Yup.object().shape({
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().min(6, 'Senha obrigatória')
+        password: Yup.string().min(6, 'Mínimo de 6 caracteres')
       });
 
       await schema.validate(data, {
@@ -40,6 +41,7 @@ const SingIn: React.FC = () => {
       console.log('data: ', data)
       await signIn(data);
       formRef.current?.reset();
+      history.push('/dashboard');
     } catch(err) {
       console.error(err);
       if(err instanceof Yup.ValidationError) {
