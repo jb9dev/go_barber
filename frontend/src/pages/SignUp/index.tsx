@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -24,6 +25,7 @@ interface SignUpFromData {
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signUp } = useAuth();
+  const { addToast } = useToast();
   const history = useHistory();
 
   const handleSubmit = useCallback( async (data: SignUpFromData) => {
@@ -44,14 +46,28 @@ const SingUp: React.FC = () => {
       await signUp(data);
       formRef.current?.reset();
       history.push('/dashboard');
+
+      addToast({
+        type: 'success',
+        title: 'Cadastrado com sucesso!',
+        description: 'Você já pode realizar o seu logon no GoBarber!'
+      });
+
     } catch(err) {
       console.error(err)
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
+        return;
       }
+
+      addToast({
+        type: 'error',
+        title: 'Erro ao cadastrar!',
+        description: 'Ocorreu um erro ao realizar o cadastro, por favor tente novamente!'
+      });
     }
-  }, [signUp, history]);
+  }, [signUp, history, addToast]);
 
   return (
     <Container>
