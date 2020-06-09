@@ -32,7 +32,7 @@ const Toast: React.FC<ToastProps> = ({
     }, timeout)
 
     return () => clearTimeout(timer);
-  },[removeToast, id]);
+  },[removeToast, id, timeout]);
 
 
   return (
