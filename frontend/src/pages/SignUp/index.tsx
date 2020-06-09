@@ -45,10 +45,10 @@ const SingUp: React.FC = () => {
       formRef.current?.reset();
     } catch(err) {
       console.error(err)
-
-      const errors = getValidationErrors(err);
-      console.log('getValidationErrors: ', errors);
-      formRef.current?.setErrors(errors);
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+      }
     }
   }, [signUp]);
 
