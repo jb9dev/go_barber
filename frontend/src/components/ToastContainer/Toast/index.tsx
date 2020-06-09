@@ -12,11 +12,13 @@ import { ToastMessage, useToast } from '../../../hooks/toast'
 interface ToastProps {
   message: ToastMessage;
   timeout?: number;
+  style: object;
 }
 
 const Toast: React.FC<ToastProps> = ({
   message: { id, type, title, description },
   timeout = 3000,
+  style,
 }) => {
   const { removeToast } = useToast();
 
@@ -36,7 +38,7 @@ const Toast: React.FC<ToastProps> = ({
 
 
   return (
-    <Container type={type || 'info'}>
+    <Container style={style} type={type || 'info'}>
       {icons[type || 'info']}
       <div>
         <strong>{title}</strong>
