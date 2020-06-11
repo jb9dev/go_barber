@@ -1,12 +1,21 @@
+import 'react-native-gesture-handler';
+
 import React from 'react';
-import {View, Text} from 'react-native';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
+import AuthRoutes from './routes';
 
 // import { Container, Title } from './styles'
 
 const App: React.FC = () => (
-  <View>
-    <Text>App GoBarber</Text>
-  </View>
+  <NavigationContainer>
+    <StatusBar barStyle="light-content" backgroundColor="#312e38" />
+    <AuthRoutes />
+    {/* <Container> */}
+      {/* <Title>Teste</Title> */}
+    {/* </Container> */}
+  </NavigationContainer>
 );
 
 export default App
