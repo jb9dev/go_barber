@@ -2,14 +2,17 @@ import styled from 'styled-components/native';
 
 import { colors } from '../../styles/variables';
 
-const { light } = colors;
+const { light2 } = colors;
 
 export const Container = styled.View`
-  padding-top: 20px;
+  flex: 1;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
+  margin: 64px 0 16px;
+  font-family: 'RobotoSlab-Medium';
   font-size: 25px;
-  color: ${light};
+  color: ${light2};
 `;
