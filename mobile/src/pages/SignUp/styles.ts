@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import { colors } from '../../styles/variables';
 
-const { light } = colors;
+const { light2 } = colors;
 
 export const Container = styled.View`
   padding-top: 20px;
@@ -11,5 +11,5 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 25px;
-  color: ${light};
+  color: ${light2};
 `;
