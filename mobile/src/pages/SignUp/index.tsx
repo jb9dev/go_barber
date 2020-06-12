@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import logoImg from '../../assets/logo.png';
@@ -18,12 +19,14 @@ import { colors } from '../../styles/variables';
 import { Container, Title, GoBack, GoBackText } from './styles';
 
 const SignUp: React.FC = () => {
+  const navigation = useNavigation();
+
   const handledSubmit = useCallback(() => {
     console.log('Sign up submited')
   }, [])
 
   const handledGoBack = useCallback(() => {
-    console.log('handle go back')
+    navigation.goBack();
   }, [])
 
   return (

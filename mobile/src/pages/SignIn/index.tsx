@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Image, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import logoImg from '../../assets/logo.png'
@@ -18,6 +19,8 @@ import {
 } from './styles';
 
 const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+
   const handleSubmit = useCallback(() => {
     console.log('Sign in submited');
   }, []);
@@ -27,7 +30,7 @@ const SignIn: React.FC = () => {
   }, []);
 
   const handleCreateAccount = useCallback(() => {
-    console.log('Handle create account');
+    navigation.navigate('SignUp');
   }, []);
 
   return (
