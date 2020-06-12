@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { colors } from '../../styles/variables';
+import { colors, fontFamilies } from '../../styles/variables';
 
 const { light2 } = colors;
 
@@ -10,6 +10,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
+  font-family: ${fontFamilies.medium};
   font-size: 25px;
   color: ${light2};
 `;
