@@ -3,7 +3,7 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../styles/variables';
 
-const { light2, dark, primary } = colors;
+const { dark, light2, primary, secondary } = colors;
 
 export const Container = styled.View`
   flex: 1;
@@ -39,6 +39,7 @@ export const CreateAccount = styled.TouchableOpacity`
   padding: 16px 0 ${16 + getBottomSpace()}px;
   justify-content: center;
   align-items: center;
+  background-color: ${secondary};
   border-top-width: 1px;
   border-top-color: ${dark};
 `;
