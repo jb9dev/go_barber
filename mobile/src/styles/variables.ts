@@ -15,3 +15,8 @@ export const colors = {
   red: '#c53030',
   blackHighTransparence: rgba(0, 0, 0, 0.2),
 };
+
+export const fontFamilies = {
+  regular: 'RobotoSlab-Regular',
+  medium: 'RobotoSlab-Medium',
+}
