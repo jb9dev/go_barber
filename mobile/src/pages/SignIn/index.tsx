@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Image } from 'react-native';
 
 import logoImg from '../../assets/logo.png'
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
-import { Container, Title, InputIcon } from './styles';
+import { Container, Title } from './styles';
 
 const SignIn: React.FC = () => {
+  const handleSubmit = useCallback(() => {
+    console.log('Sign in submited');
+  }, []);
 
   return (
     <Container>
       <Image source={logoImg} />
-      {/* Fiz assim só para lembrar como fazia para importar o ícone pelo style e usar o componente pelo index. Precisa fazer isso para incluir no componente de input que será criado */}
-      <InputIcon name="mail" size={18} />
-      <Title>SignIn</Title>
+      <Title>Faça o seu logon</Title>
+      <Input name="email" placeholder="Email" icon="mail" />
+      <Input name="password" placeholder="Senha" icon="lock" />
+      <Button onPress={handleSubmit}>Entrar</Button>
     </Container>
   );
 };
