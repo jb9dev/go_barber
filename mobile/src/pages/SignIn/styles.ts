@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../styles/variables';
@@ -7,6 +8,7 @@ const { dark, light2, primary, secondary } = colors;
 
 export const Container = styled.View`
   flex: 1;
+  margin-bottom: ${Platform.OS === 'android' ? 150 : 40}px;
   padding: 0 20px;
   align-items: center;
   justify-content: center;
