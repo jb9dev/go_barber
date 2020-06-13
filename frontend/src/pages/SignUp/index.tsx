@@ -36,7 +36,7 @@ const SingUp: React.FC = () => {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome é obrigatório'),
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().min(6, 'Senha obrigatória com no mínimo 6 caracteres'),
+        password: Yup.string().min(6, 'Mínimo 6 caracteres'),
       })
 
       await schema.validate(data, {
@@ -45,7 +45,7 @@ const SingUp: React.FC = () => {
 
       await signUp(data);
       formRef.current?.reset();
-      history.push('/dashboard');
+      history.push('/');
 
       addToast({
         type: 'success',
