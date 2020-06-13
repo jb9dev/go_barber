@@ -5,9 +5,10 @@ import { colors, fontFamilies } from '../../styles/variables';
 
 interface ContainerProps {
   isFocused: boolean;
+  hasError: boolean;
 }
 
-const { dark, grey, light2, primary } = colors;
+const { dark, grey, light2, primary, red } = colors;
 
 export const Container = styled.View<ContainerProps>`
   flex-direction: row;
@@ -21,6 +22,10 @@ export const Container = styled.View<ContainerProps>`
   border-width: 1px;
   border-color: ${dark};
   border-radius: 6px;
+
+  ${(props) => props.hasError && css`
+    border-color: ${red};
+  `}
 
   ${(props) => props.isFocused && css`
     border-color: ${primary};
