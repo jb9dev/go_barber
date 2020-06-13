@@ -1,9 +1,20 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, ScrollView, View, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
+import {
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  ScrollView,
+  View
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.png'
 import Input from '../../components/Input';
@@ -20,13 +31,46 @@ import {
   CreateAccoutText
 } from './styles';
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleSignIn = useCallback((data: any) => {
-    console.log('Sign in data: ', data);
+  const handleSignIn = useCallback( async (data: SignInFormData) => {
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'Mínimo de 6 caracteres')
+      });
+
+      await schema.validate(data, {
+        abortEarly: false
+      });
+
+      // await signIn(data);
+      formRef.current?.reset();
+      navigation.navigate('Dashboard');
+    } catch(err) {
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        const errorMessages = [];
+        for(let error in errors) {
+          errorMessages.push(errors[error])
+        }
+
+        formRef.current?.setErrors(errors);
+        Alert.alert(
+          'Login inválido!',
+          `Ocorreu um erro ao realizar o login, verifique as credenciais pois: ${errorMessages.join('; ')}.`
+        )
+        return;
+      }
+    }
   }, []);
 
   const handleForgotPassword = useCallback(() => {

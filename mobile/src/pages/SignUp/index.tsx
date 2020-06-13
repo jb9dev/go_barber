@@ -1,16 +1,20 @@
 import React, { useCallback, useRef } from 'react';
 import {
+  Alert,
   Image,
-  ScrollView,
-  View,
   KeyboardAvoidingView,
   Platform,
-  TextInput
+  TextInput,
+  ScrollView,
+  View
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.png';
 
@@ -21,15 +25,60 @@ import { colors } from '../../styles/variables';
 
 import { Container, Title, GoBack, GoBackText } from './styles';
 
+interface SignUpFromData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
   const navigation = useNavigation();
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handledSignUp = useCallback((data: object) => {
-    console.log('Sign up data: ', data)
-  }, [])
+  const handleSignUp = useCallback( async (data: SignUpFromData) => {
+
+    try {
+      formRef.current?.setErrors({});
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome é obrigatório'),
+        email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'Mínimo 6 caracteres'),
+      })
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      // await signUp(data);
+      formRef.current?.reset();
+      navigation.navigate('SignIn');
+
+      Alert.alert(
+        'Cadastrado com sucesso!',
+        'Você já pode realizar o seu logon no GoBarber!'
+      );
+
+    } catch(err) {
+      if(err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+        const errorMessages = [];
+        for(let error in errors) {
+          errorMessages.push(errors[error]);
+        }
+
+        Alert.alert(
+          'Erro ao cadastrar!',
+          `Ocorreu um erro ao realizar o cadastro, por favor tente novamente! Verifique os campos a seguir: ${errorMessages.join('; ')}`
+        );
+        return;
+      }
+
+    }
+  }, []);
 
   const handledGoBack = useCallback(() => {
     navigation.goBack();
@@ -49,7 +98,7 @@ const SignUp: React.FC = () => {
           <Container>
             <Image source={logoImg} />
             <View><Title>Crie sua conta</Title></View>
-            <Form ref={formRef} onSubmit={handledSignUp}>
+            <Form ref={formRef} onSubmit={handleSignUp}>
               <Input
                 autoCapitalize="words"
                 name="name"
