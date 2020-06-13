@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 
@@ -15,12 +15,22 @@ interface InputValueReference {
   value: string;
 }
 
+interface InputRef {
+  focus(): void;
+}
+
 const { grey } = colors;
 
-const Input: React.FC<InputProps> = ({ name, icon, placeholder, ...rest }) => {
+const Input: React.RefForwardingComponent<InputRef, InputProps> = ({ name, icon, placeholder, ...rest }, ref) => {
   const inputElementRef = useRef<any>(null);
   const { registerField, fieldName, defaultValue = '', error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue});
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current?.focus()
+    }
+  }));
 
   useEffect(() => {
     registerField<string>({
@@ -56,4 +66,4 @@ const Input: React.FC<InputProps> = ({ name, icon, placeholder, ...rest }) => {
   )
 };
 
-export default Input;
+export default forwardRef(Input);
