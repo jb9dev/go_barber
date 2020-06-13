@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image, ScrollView, View, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
@@ -23,6 +23,7 @@ import {
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const handleSignIn = useCallback((data: any) => {
     console.log('Sign in data: ', data);
@@ -51,8 +52,25 @@ const SignIn: React.FC = () => {
             <Image source={logoImg} />
             <View><Title>Faça o seu logon</Title></View>
             <Form ref={formRef} onSubmit={handleSignIn}>
-              <Input name="email" placeholder="Email" icon="mail" />
-              <Input name="password" placeholder="Senha" icon="lock" />
+              <Input
+                keyboardType="email-address"
+                autoCorrect={false}
+                autoCapitalize="none"
+                name="email"
+                placeholder="Email"
+                icon="mail"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordInputRef.current?.focus()}
+              />
+              <Input
+                ref={passwordInputRef}
+                secureTextEntry
+                name="password"
+                placeholder="Senha"
+                icon="lock"
+                returnKeyType="send"
+                onSubmitEditing={() => formRef.current?.submitForm()}
+              />
               <Button onPress={() => formRef.current?.submitForm()}>
                 Entrar
               </Button>
