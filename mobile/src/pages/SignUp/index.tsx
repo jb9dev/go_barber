@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import api from '../../services/api';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -52,15 +53,15 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
-      // await signUp(data);
-      formRef.current?.reset();
-      navigation.navigate('SignIn');
-
+      await api.post('/users', data);
+      console.log('data: ', data);
       Alert.alert(
         'Cadastrado com sucesso!',
         'Você já pode realizar o seu logon no GoBarber!'
       );
 
+      formRef.current?.reset();
+      navigation.navigate('SignIn');
     } catch(err) {
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -76,6 +77,11 @@ const SignUp: React.FC = () => {
         );
         return;
       }
+
+      Alert.alert(
+        'Erro ao cadastrar!',
+        'Ocorreu um erro ao realizar o cadastro, por favor tente novamente ou verifique sua conexão com a internet!'
+      );
 
     }
   }, []);
