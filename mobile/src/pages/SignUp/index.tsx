@@ -57,7 +57,8 @@ const SignUp: React.FC = () => {
       console.log('data: ', data);
       Alert.alert(
         'Cadastrado com sucesso!',
-        'Você já pode realizar o seu logon no GoBarber!'
+        'Você já pode realizar o seu logon no GoBarber!',
+        [{ text: 'ok', style: 'default' }]
       );
 
       formRef.current?.reset();
@@ -73,7 +74,8 @@ const SignUp: React.FC = () => {
 
         Alert.alert(
           'Erro ao cadastrar!',
-          `Ocorreu um erro ao realizar o cadastro, por favor tente novamente! Verifique os campos a seguir: ${errorMessages.join('; ')}`
+          `Ocorreu um erro ao realizar o cadastro, por favor tente novamente! Verifique os campos a seguir: ${errorMessages.join('; ')}`,
+          [{ text: 'ok', style: 'default' }]
         );
         return;
       }
