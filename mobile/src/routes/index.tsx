@@ -5,7 +5,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import Dashboard from '../pages/Dashboard';
 
-import { colors } from '../styles/variables';
+import { colors } from '../globalVariables';
 
 const Auth = createStackNavigator();
 const { secondary } = colors;

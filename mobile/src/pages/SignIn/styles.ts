@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { Platform } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
-import { colors, fontFamilies } from '../../styles/variables';
+import { colors, fontFamilies } from '../../globalVariables';
 
 const { dark, light2, primary, secondary } = colors;
 

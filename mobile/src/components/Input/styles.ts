@@ -1,7 +1,7 @@
 import styled,  { css } from 'styled-components/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import { colors, fontFamilies } from '../../styles/variables';
+import { colors, fontFamilies } from '../../globalVariables';
 
 interface ContainerProps {
   isFocused: boolean;

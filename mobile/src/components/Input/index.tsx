@@ -4,7 +4,7 @@ import { useField } from '@unform/core';
 
 import { Container, Icon, InputText } from './styles';
 
-import { colors }  from '../../styles/variables';
+import { colors }  from '../../globalVariables';
 
 interface InputProps extends TextInputProps {
   name: string;

@@ -22,7 +22,7 @@ import logoImg from '../../assets/logo.png'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { colors } from '../../styles/variables';
+import { colors } from '../../globalVariables';
 
 import {
   Container,

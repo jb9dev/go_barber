@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { colors, fontFamilies } from '../../styles/variables';
+import { colors, fontFamilies } from '../../globalVariables';
 
 const { light2 } = colors;
 
