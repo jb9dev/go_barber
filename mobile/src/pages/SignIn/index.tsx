@@ -42,9 +42,7 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
-  const { signIn, user } = useAuth();
-
-  console.log('user: ', user);
+  const { signIn } = useAuth();
 
   const handleSignIn = useCallback( async (data: SignInFormData) => {
     try {
@@ -59,7 +57,6 @@ const SignIn: React.FC = () => {
 
       await signIn(data);
       formRef.current?.reset();
-      navigation.navigate('Dashboard');
     } catch(err) {
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
