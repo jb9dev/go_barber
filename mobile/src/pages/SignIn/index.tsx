@@ -14,6 +14,8 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import { useAuth } from '../../hooks/auth';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.png'
@@ -40,6 +42,9 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+  const { signIn, user } = useAuth();
+
+  console.log('user: ', user);
 
   const handleSignIn = useCallback( async (data: SignInFormData) => {
     try {
@@ -52,7 +57,7 @@ const SignIn: React.FC = () => {
         abortEarly: false
       });
 
-      // await signIn(data);
+      await signIn(data);
       formRef.current?.reset();
       navigation.navigate('Dashboard');
     } catch(err) {
@@ -66,10 +71,17 @@ const SignIn: React.FC = () => {
         formRef.current?.setErrors(errors);
         Alert.alert(
           'Login inválido!',
-          `Ocorreu um erro ao realizar o login, verifique as credenciais pois: ${errorMessages.join('; ')}.`
+          `Ocorreu um erro ao realizar o login, verifique as credenciais pois: ${errorMessages.join('; ')}.`,
+          [{ text: 'ok', style: 'default' }]
         )
         return;
       }
+
+      Alert.alert(
+        'Login inválido!',
+        'Ocorreu um erro ao realizar o login, verifique suas credenciais.',
+        [{ text: 'ok', style: 'default' }]
+      )
     }
   }, []);
 
