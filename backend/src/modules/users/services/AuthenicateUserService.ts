@@ -1,25 +1,29 @@
-import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
+import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
-import authConfig from '@config/auth';
+import IUsersRepository from '../repositories/IUsersRepository';
 
-interface RequestDTO {
+interface IRequestDTO {
   email: string;
   password: string;
 }
 
-interface ResponseDTO {
+interface IResponseDTO {
   user: User;
   token: string;
 }
 
 class AuthenicateUserService {
-  public async execute({ email, password }: RequestDTO): Promise<ResponseDTO> {
-    const sessionsRepository = getRepository(User);
-    const user = await sessionsRepository.findOne({ where: { email } });
+  constructor(private usersRepository: IUsersRepository) {}
+
+  public async execute({
+    email,
+    password,
+  }: IRequestDTO): Promise<IResponseDTO> {
+    const user = await this.usersRepository.findByEmail(email);
     const { secret, expiresIn } = authConfig.jwt;
 
     if (!user) {
