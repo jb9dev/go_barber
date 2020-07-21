@@ -1,4 +1,3 @@
-import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { injectable, inject } from 'tsyringe';
 
@@ -6,6 +5,7 @@ import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequestDTO {
   email: string;
@@ -22,6 +22,9 @@ class AuthenicateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hasProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -35,7 +38,10 @@ class AuthenicateUserService {
       throw new AppError('User or password is invalid', 401);
     }
 
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await this.hasProvider.compareHash(
+      password,
+      user.password,
+    );
 
     if (!passwordMatch) {
       throw new AppError('User or password is invalid', 401);
