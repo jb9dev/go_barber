@@ -43,7 +43,7 @@ describe('CreateAppointment', () => {
       fakeHashProvider,
     );
 
-    expect(
+    await expect(
       authenicateUserService.execute({
         email: 'johndoe@test.com',
         password: '123456',
@@ -68,7 +68,7 @@ describe('CreateAppointment', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       authenicateUserService.execute({
         email: 'johndoe@test.com',
         password: '12345',

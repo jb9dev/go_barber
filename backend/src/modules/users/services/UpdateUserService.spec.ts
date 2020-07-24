@@ -37,7 +37,7 @@ describe('CreateAppointment', () => {
       fakeStorageProvider,
     );
 
-    expect(
+    await expect(
       updateUserAvatarService.execute({
         user_id: 'some-user-that-do-not-exists',
         avatar_filename: 'user_avatar.jpg',
