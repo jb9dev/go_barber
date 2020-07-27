@@ -11,7 +11,7 @@ const routes = Router();
 routes.use('/appointments', appointmentsRouter);
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
-routes.use('/files', express.static(uploadConfig.tempDir));
+routes.use('/files', express.static(uploadConfig.uploadsDir));
 routes.use('/password', passwordRouter);
 
 export default routes;
