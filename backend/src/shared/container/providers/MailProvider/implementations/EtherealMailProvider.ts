@@ -1,11 +1,19 @@
 import nodemailer, { Transporter } from 'nodemailer';
+import { injectable, inject } from 'tsyringe';
 
+import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
+
+import IMailProviderDTO from '../dtos/IMailProviderDTO';
 import IMailProvider from '../models/IMailProvider';
 
+@injectable()
 class EtherealMailProvider implements IMailProvider {
   private client: Transporter;
 
-  constructor() {
+  constructor(
+    @inject('MailTemplateProvider')
+    private mailTemplateProvider: IMailTemplateProvider,
+  ) {
     nodemailer.createTestAccount().then(account => {
       this.client = nodemailer.createTransport({
         host: account.smtp.host,
@@ -19,25 +27,27 @@ class EtherealMailProvider implements IMailProvider {
     });
   }
 
-  public async sendEmail(to: string, body: string): Promise<void> {
-    const message = {
-      from: 'Equipe GoBarber <equipe@gobarber.com.br>',
-      to,
-      subject: 'Recuperação de senha',
-      text: body,
-    };
-
-    await this.client.sendMail(message, (err, info) => {
-      if (err) {
-        console.log('Error occurred: ', err.message);
-        return process.exit(1);
-      }
-
-      console.log('Message sent: ', info.messageId);
-      console.log('Preview URL: ', nodemailer.getTestMessageUrl(info));
-
-      return info;
+  public async sendEmail({
+    from,
+    to,
+    body,
+    subject,
+  }: IMailProviderDTO): Promise<void> {
+    const info = await this.client.sendMail({
+      from: {
+        name: from?.name || 'Equipe GoBarber',
+        address: from?.email || 'equipe@gobarber.com.br',
+      },
+      to: {
+        name: to.name,
+        address: to.email,
+      },
+      subject,
+      html: await this.mailTemplateProvider.parse(body),
     });
+
+    console.log('Message sent: ', info.messageId); //eslint-disable-line
+    console.log('Preview URL: ', nodemailer.getTestMessageUrl(info)); //eslint-disable-line
   }
 }
 
