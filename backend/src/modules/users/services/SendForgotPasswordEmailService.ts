@@ -1,8 +1,8 @@
 import { injectable, inject } from 'tsyringe';
+import path from 'path';
 
 import AppError from '@shared/errors/AppError';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
-// import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
@@ -25,6 +25,12 @@ class SendForgotPasswordEmailService {
 
   public async execute({ email }: IRequestDTO): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
+    const templateFile = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs',
+    );
 
     if (!user) {
       throw new AppError('User does not exists');
@@ -32,10 +38,20 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    await this.mailProvider.sendEmail(
-      email,
-      `Recebemos a sua solicitação de recuperação de senha com sucesso! Token: ${token}`,
-    );
+    await this.mailProvider.sendEmail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: 'Recuperação de senha',
+      body: {
+        file: templateFile,
+        variables: {
+          name: user.name,
+          link: `http://localhost:3000/reset_password?token=${token}`,
+        },
+      },
+    });
   }
 }
 
