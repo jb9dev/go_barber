@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
-interface AuthToken {
+interface IAuthToken {
   iat: number;
   exp: number;
   sub: string;
@@ -25,7 +25,7 @@ export default function ensureAuthenicated(
   try {
     const [_, token] = authorization.split(' ');
     const decoded = verify(token, secret);
-    const { sub } = decoded as AuthToken;
+    const { sub } = decoded as IAuthToken;
 
     request.user = {
       id: sub,
