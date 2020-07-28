@@ -27,6 +27,7 @@
 
 - O usuário não pode alterar seu e-mail para um e-mail já utilizado;
 - Para atualizar sua senha, o usuário deve informar a senha antiga;
+- Para atualizar sua senha, o usuário deve informar a senha antiga corretamente;
 - Para atualizar sua senha, o usuário precisa confirmar a senha nova;
 
 # Painel do prestador
