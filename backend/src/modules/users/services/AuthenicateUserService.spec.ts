@@ -7,19 +7,26 @@ import AuthenicateUserService from './AuthenicateUserService';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
-describe('CreateAppointment', () => {
-  it('should be able to authenicate a user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-    const authenicateUserService = new AuthenicateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUserService: CreateUserService;
+let authenicateUserService: AuthenicateUserService;
 
+describe('CreateAppointment', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUserService = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+    authenicateUserService = new AuthenicateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+  });
+
+  it('should be able to authenicate a user', async () => {
     const user = await createUserService.execute({
       name: 'John Doe',
       email: 'johndoe@test.com',
@@ -36,13 +43,6 @@ describe('CreateAppointment', () => {
   });
 
   it('should not be able to authenicate a user that do not exists', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const authenicateUserService = new AuthenicateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-
     await expect(
       authenicateUserService.execute({
         email: 'johndoe@test.com',
@@ -52,16 +52,6 @@ describe('CreateAppointment', () => {
   });
 
   it('should not be able to authenicate a user with wrong password', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-    const createUserService = new CreateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
-    const authenicateUserService = new AuthenicateUserService(
-      fakeUsersRepository,
-      fakeHashProvider,
-    );
     await createUserService.execute({
       name: 'John Doe',
       email: 'johndoe@test.com',
