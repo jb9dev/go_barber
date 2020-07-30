@@ -7,6 +7,7 @@ import sessionsRouter from '@modules/users/infra/http/routes/session.routes';
 import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import providersRouter from '@modules/appointments/infra/http/routes/providers.routes';
+import availabilityRouter from '@modules/appointments/infra/http/routes/availability.routes';
 
 const routes = Router();
 
@@ -17,5 +18,6 @@ routes.use('/files', express.static(uploadConfig.uploadsDir));
 routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
 routes.use('/providers', providersRouter);
+routes.use('/availability', availabilityRouter);
 
 export default routes;
