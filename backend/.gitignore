@@ -1,6 +1,5 @@
 node_modules
 *.log
-src/config/auth.ts
 tmp/*
 !tmp/.gitkeep
 
