@@ -15,10 +15,14 @@ describe('ListProvidersMonthAvailability', () => {
   });
 
   it('should be able to list the month availability from a provider', async () => {
+    jest
+      .spyOn(Date, 'now')
+      .mockImplementationOnce(() => new Date(2020, 4, 9, 8, 0, 0).getTime());
+
     await fakeAppointmentsRepository.create({
       provider_id: 'provider_id',
       client_id: 'client_id',
-      date: new Date(2020, 3, 10, 12, 0, 0),
+      date: new Date(2020, 4, 10, 12, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
