@@ -9,7 +9,7 @@ const { tempDir, uploadsDir } = config;
 class DiskStorageProvider implements IStorageProvider {
   public async saveFile(file: string): Promise<string> {
     await fs.promises.rename(
-      path.resolve(tempDir),
+      path.resolve(tempDir, file),
       path.resolve(uploadsDir, file),
     );
     return file;
