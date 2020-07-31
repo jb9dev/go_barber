@@ -36,7 +36,7 @@ class ListProviderMonthAvailabilityService {
       },
     );
 
-    const now = new Date();
+    const now = new Date(Date.now());
     const currentMonth = getMonth(now);
     const currentDay = getDate(now);
     const monthAvailable = currentMonth <= month - 1;
