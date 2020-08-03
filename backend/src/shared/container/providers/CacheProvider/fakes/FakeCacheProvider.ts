@@ -8,14 +8,16 @@ class FakeCacheProvider implements ICacheProvider {
   private cache: ICache = {};
 
   public async save(key: string, value: any): Promise<void> {
-    const parsedValue = JSON.stringify(value);
-    this.cache[key] = parsedValue;
+    this.cache[key] = JSON.stringify(value);
   }
 
-  public async recover<T>(key: string): Promise<T> {
-    const parsedCache = JSON.parse(this.cache[key]);
+  public async recover<T>(key: string): Promise<T | null> {
+    const data = this.cache[key];
 
-    return parsedCache;
+    if (!data) {
+      return null;
+    }
+    return JSON.parse(data) as T;
   }
 
   public async invalidate(key: string): Promise<void> {
@@ -31,8 +33,6 @@ class FakeCacheProvider implements ICacheProvider {
         delete this.cache[key];
       }
     });
-
-    console.log('cache: ', this.cache); // eslint-disable-line
   }
 }
 
