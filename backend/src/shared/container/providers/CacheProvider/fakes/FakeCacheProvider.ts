@@ -24,11 +24,15 @@ class FakeCacheProvider implements ICacheProvider {
 
   public async invalidatePrefix(prefix: string): Promise<void> {
     const prefixCategory = prefix.split(':')[0];
-    const cachekeys = Object.keys(this.cache).filter(
-      key => key === prefixCategory,
-    );
+    const cacheKeys = Object.keys(this.cache);
 
-    console.log('cachekeys: ', cachekeys);
+    cacheKeys.forEach(key => {
+      if (key.match(prefixCategory) && key.match(prefixCategory[0])) {
+        delete this.cache[key];
+      }
+    });
+
+    console.log('cache: ', this.cache); // eslint-disable-line
   }
 }
 
