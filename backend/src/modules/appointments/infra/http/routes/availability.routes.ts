@@ -12,20 +12,29 @@ const providerMonthAvailabilityController = new ProviderMonthAvailabilityControl
 
 availabilityRouter.use(ensureAuthenicated);
 
-availabilityRouter.post(
+availabilityRouter.get(
   '/:provider_id/day',
   celebrate({
     [Segments.PARAMS]: {
       provider_id: Joi.string().uuid().required(),
     },
+    [Segments.QUERY]: {
+      year: Joi.number().required(),
+      month: Joi.number().required(),
+      day: Joi.number().required(),
+    },
   }),
   providerDayAvailabilityController.index,
 );
-availabilityRouter.post(
+availabilityRouter.get(
   '/:provider_id/month',
   celebrate({
     [Segments.PARAMS]: {
       provider_id: Joi.string().uuid().required(),
+    },
+    [Segments.QUERY]: {
+      year: Joi.number().required(),
+      month: Joi.number().required(),
     },
   }),
   providerMonthAvailabilityController.index,
