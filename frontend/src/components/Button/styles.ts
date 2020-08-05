@@ -3,7 +3,7 @@ import { shade } from 'polished';
 
 import { colors } from '../../styles/variables';
 
-const { primary, secondary } = colors;
+const { primary, secondary, grey } = colors;
 
 export const Container = styled.button`
   width: 100%;
@@ -19,5 +19,9 @@ export const Container = styled.button`
 
   &:hover {
     background-color: ${shade(0.2, primary)};
+  }
+
+  &:disabled {
+    background-color: ${grey};
   }
 `;
