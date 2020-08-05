@@ -7,6 +7,7 @@ import { FiLock } from 'react-icons/fi';
 
 import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
+import queryMap from '../../utils/mapQueryString';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -21,30 +22,19 @@ interface ResetPasswordFormData {
   password_confirmation: string;
 }
 
-interface QueryMap {
-  [key: string]: string;
-}
+// interface QueryMap {
+//   [key: string]: string;
+// }
 
 const ResetPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const location = useLocation();
   const { addToast } = useToast();
-  const locationQuery = location.search.replace('?', '').split('&');
-  const queryMap: QueryMap = {};
-
-  locationQuery.forEach(query => {
-    const queryArray = query.split('=');
-    const queryMapKey = queryArray[0];
-    const queryMapValue = queryArray[1];
-
-    queryMap[queryMapKey] = queryMapValue;
-  });
 
   const handleSubmit = useCallback( async (data: ResetPasswordFormData) => {
     const { password, password_confirmation } = data;
-    const { token } = queryMap;
-    console.log('token: ', token);
+    const { token } = queryMap(location.search);
 
     try {
       const schema = Yup.object().shape({
