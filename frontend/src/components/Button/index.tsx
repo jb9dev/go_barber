@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({ children, loading, ...otherProps }) => 
     type="button"
     {...otherProps}
   >
-    {loading ? 'solicitando...' : children}
+    {loading ? 'carregando...' : children}
   </Container>
 );
 
