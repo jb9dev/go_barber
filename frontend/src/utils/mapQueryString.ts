@@ -2,7 +2,7 @@ interface QueryMap {
   [key: string]: string;
 }
 
-export default function mapQueryString(query: string) {
+export default function mapQueryString(query: string): QueryMap {
   const locationQuery = query.replace('?', '').split('&');
   const queryMap: QueryMap = {};
 
