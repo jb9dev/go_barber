@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
-import { FiArrowLeft } from 'react-icons/fi'
 
 import { colors } from '../../styles/variables';
 
