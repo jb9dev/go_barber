@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
-import { colors } from '../../styles/variables';
+import { colors, defaultTransition } from '../../styles/variables';
 
 interface CalendarProps {
   weekDay: string;
@@ -41,26 +41,50 @@ export const Profile = styled.div`
   margin-left: 80px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+`;
 
-  img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
+export const ProfileImg = styled.div`
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${lightGrey};
+  border-radius: 50%;
+  transition: background-color ${defaultTransition}, color ${defaultTransition};
+  overflow: hidden;
+
+  &:hover {
+    background-color: ${darkGrey};
+
+    svg {
+      color: ${light};
+    }
   }
 
-  div {
-    display: flex;
-    margin-left: 15px;
-    flex-direction: column;
-    line-height: 24px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
-    span {
-      color: ${light2};
-    }
+  svg {
+    color: ${darkGrey};
+  }
+`;
 
-    strong {
-      color: ${primary};
-    }
+export const ProfileInfos = styled.div`
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+  line-height: 24px;
+
+  span {
+    color: ${light2};
+  }
+
+  strong {
+    color: ${primary};
   }
 `;
 
