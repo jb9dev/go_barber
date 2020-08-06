@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import { isToday, isTomorrow } from 'date-fns';
-import { FiPower, FiClock } from 'react-icons/fi';
+import { FiPower, FiClock, FiCamera } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
@@ -14,6 +15,8 @@ import {
   Header,
   HeaderContent,
   Profile,
+  ProfileImg,
+  ProfileInfos,
   Logout,
   Body,
   Schedule,
@@ -30,6 +33,7 @@ interface MonthAvailability {
 
 const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth();
+  const history = useHistory();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailability[]>([]);
@@ -100,12 +104,18 @@ const Dashboard: React.FC = () => {
       <Header>
         <HeaderContent>
           <img src={logoImg} alt="Logo GoBarber" />
-          <Profile>
-            <img src={user.avatar_url} alt={`Foto perfil ${user.name}`} />
-            <div>
+          <Profile  onClick={() => history.push('/profile')}>
+            <ProfileImg>
+              {
+                user.avatar_url
+                ? <img src={user.avatar_url} alt={`Foto perfil ${user.name}`} />
+                : <FiCamera size={20} />
+              }
+            </ProfileImg>
+            <ProfileInfos>
               <span>Bem-vindo</span>
               <strong>{user.name}</strong>
-            </div>
+            </ProfileInfos>
           </Profile>
           <Logout onClick={signOut}><FiPower size={20} /></Logout>
         </HeaderContent>
@@ -126,7 +136,11 @@ const Dashboard: React.FC = () => {
           <NextAppointment>
             <strong>Atendimento a seguir</strong>
             <div>
-              <img src={user.avatar_url} alt={user.name} />
+              {
+                user.avatar_url
+                 ? <img src={user.avatar_url} alt={user.name} />
+                 : <FiCamera size={15} />
+              }
               <strong>{user.name}</strong>
               <span><FiClock /> 08:00</span>
             </div>
@@ -136,14 +150,22 @@ const Dashboard: React.FC = () => {
             <Appointment>
               <span><FiClock /> 09:00</span>
               <div>
-                <img src={user.avatar_url} alt={user.name} />
+              {
+                user.avatar_url
+                 ? <img src={user.avatar_url} alt={user.name} />
+                 : <FiCamera size={15} />
+              }
                 <strong>{user.name}</strong>
               </div>
             </Appointment>
             <Appointment>
               <span><FiClock /> 11:00</span>
               <div>
-                <img src={user.avatar_url} alt={user.name} />
+              {
+                user.avatar_url
+                 ? <img src={user.avatar_url} alt={user.name} />
+                 : <FiCamera size={15} />
+              }
                 <strong>{user.name}</strong>
               </div>
             </Appointment>
@@ -153,7 +175,11 @@ const Dashboard: React.FC = () => {
             <Appointment>
               <span><FiClock /> 13:00</span>
               <div>
-                <img src={user.avatar_url} alt={user.name} />
+              {
+                user.avatar_url
+                 ? <img src={user.avatar_url} alt={user.name} />
+                 : <FiCamera size={15} />
+              }
                 <strong>{user.name}</strong>
               </div>
             </Appointment>
