@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { isToday, isTomorrow } from 'date-fns';
 import { FiPower, FiClock } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -33,6 +34,17 @@ const Dashboard: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailability[]>([]);
 
+  const dayReference = useMemo(() => {
+    if(isToday(selectedDate)) {
+      return 'Hoje'
+    }
+
+    if(isTomorrow(selectedDate)) {
+      return 'Amanhã'
+    }
+
+    return selectedDate.toLocaleDateString();
+  }, [selectedDate])
   const dayDate = useMemo(
     () => String(selectedDate.getDate()).padStart(2, '0'), [selectedDate]
   );
@@ -103,8 +115,11 @@ const Dashboard: React.FC = () => {
         <Schedule>
           <h1>Horários agendados</h1>
           <p>
-            <span>Hoje</span>
-            <span>{dayDate}</span>
+            <span>{dayReference}</span>
+            {
+              (dayReference === 'Hoje' || dayReference === 'Amanhã') &&
+                <span>{dayDate}</span>
+            }
             <span>{weekDay}</span>
           </p>
 
