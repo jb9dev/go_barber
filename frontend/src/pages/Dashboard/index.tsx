@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isToday, isTomorrow, format, getHours, parseISO, getMinutes } from 'date-fns';
+import { isToday, isTomorrow, format, getHours, parseISO } from 'date-fns';
 import { FiPower, FiClock, FiCamera } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -89,7 +89,7 @@ const Dashboard: React.FC = () => {
   }, [currentMonth, monthAvailability])
 
   const handleModifier = useCallback((day: Date, modifiers: DayModifiers) => {
-    if(modifiers.available) {
+    if(modifiers.available && !modifiers.disabled) {
       setSelectedDate(day);
     }
   }, [])
@@ -183,8 +183,10 @@ const Dashboard: React.FC = () => {
             <span>{weekDay}</span>
           </p>
           {
-            nextAppointment && nextAppointment.client
-              ? <NextAppointment>
+            dayReference === 'Hoje'
+            && nextAppointment
+            && nextAppointment.client
+              ? (<NextAppointment>
                   <strong>Agendamento a seguir</strong>
                   <div>
                     {
@@ -198,19 +200,19 @@ const Dashboard: React.FC = () => {
                       {getAppointmentTime(nextAppointment.date)}
                     </span>
                   </div>
-                </NextAppointment>
+                </NextAppointment>)
               : <React.Fragment />
           }
           {
             !morningAppointments.length
               && !afternoonAppointments.length
-                && <Section>
+                && (<Section>
                     <strong>Não há agendamentos para este dia</strong>
-                  </Section>
+                  </Section>)
           }
           {
             morningAppointments.length
-            ? <Section>
+            ? (<Section>
                 <strong>Manhã</strong>
                 {
                   morningAppointments.map(appointment => (
@@ -233,12 +235,12 @@ const Dashboard: React.FC = () => {
                     </Appointment>
                   ))
                 }
-              </Section>
+              </Section>)
             : <React.Fragment />
           }
           {
             afternoonAppointments.length
-              ? <Section>
+              ? (<Section>
                 <strong>Tarde</strong>
                 {
                   afternoonAppointments.map(appointment => (
@@ -261,7 +263,7 @@ const Dashboard: React.FC = () => {
                     </Appointment>
                   ))
                 }
-              </Section>
+              </Section>)
             : <React.Fragment />
           }
 
