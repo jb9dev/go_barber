@@ -36,6 +36,7 @@ class ListProviderMonthAvailabilityService {
       },
     );
 
+    const today = new Date();
     const daysInMonth = getDaysInMonth(new Date(year, month - 1));
     const daysInMonthArray = Array.from(
       { length: daysInMonth },
@@ -46,7 +47,7 @@ class ListProviderMonthAvailabilityService {
       const providerDayAvailability = providerMonthAvailability.filter(
         availability => getDate(availability.date) === day,
       );
-      const dateAvailable = isAfter(new Date(year, month, day), new Date());
+      const dateAvailable = isAfter(new Date(year, month - 1, day), today);
 
       return {
         day,
