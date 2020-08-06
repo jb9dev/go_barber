@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
             </Appointment>
           </Section>
         </Schedule>
-        <Calendar>
+        <Calendar weekDay={weekDay}>
           <DayPicker
             weekdaysShort={weekdaysShort}
             months={months}
