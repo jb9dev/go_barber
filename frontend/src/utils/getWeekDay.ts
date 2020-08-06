@@ -2,7 +2,7 @@ interface WeekDay {
   [key: number]: string;
 }
 
-export default function getWeekDay(date: Date): WeekDay {
+export default function getWeekDay(date: Date): string {
   const weekDays: WeekDay = {
     1: 'Segunda-feira',
     2: 'Terça-feira',
@@ -13,5 +13,5 @@ export default function getWeekDay(date: Date): WeekDay {
     7: 'Domingo',
   };
 
-  return weekDays[date.getDay()]
+  return weekDays[date.getDay()];
 }
