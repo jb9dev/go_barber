@@ -209,6 +209,7 @@ export const Appointment = styled.div`
 
   span {
     display: flex;
+    width: 70px;
     margin-left: auto;
     align-items: center;
     color: ${lightGrey};
