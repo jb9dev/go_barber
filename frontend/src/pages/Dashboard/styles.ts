@@ -194,7 +194,7 @@ export const Section = styled.section`
     font-size: 20px;
     color: ${lightGrey};
     line-height: 26px;
-    border-bottom: 1px solide ${darkGrey};
+    border-bottom: 1px solid ${darkGrey};
 
   }
 `;
