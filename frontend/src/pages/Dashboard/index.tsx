@@ -216,7 +216,7 @@ const Dashboard: React.FC = () => {
                 <strong>Manhã</strong>
                 {
                   morningAppointments.map(appointment => (
-                    <Appointment>
+                    <Appointment key={appointment.id}>
                       <span>
                         <FiClock />
                         {getAppointmentTime(appointment.date)}
@@ -244,7 +244,7 @@ const Dashboard: React.FC = () => {
                 <strong>Tarde</strong>
                 {
                   afternoonAppointments.map(appointment => (
-                    <Appointment>
+                    <Appointment key={appointment.id}>
                       <span>
                         <FiClock />
                         {getAppointmentTime(appointment.date)}
