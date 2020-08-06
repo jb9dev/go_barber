@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isToday, isTomorrow } from 'date-fns';
+import { isToday, isTomorrow, format } from 'date-fns';
 import { FiPower, FiClock, FiCamera } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -31,12 +31,22 @@ interface MonthAvailability {
   available: boolean;
 }
 
+interface Appointment {
+  id: string;
+  date: string;
+  user: {
+    name: string;
+    avatar_url: string;
+  }
+}
+
 const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth();
   const history = useHistory();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailability[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   const dayReference = useMemo(() => {
     if(isToday(selectedDate)) {
@@ -47,7 +57,7 @@ const Dashboard: React.FC = () => {
       return 'Amanhã'
     }
 
-    return selectedDate.toLocaleDateString();
+    return format(selectedDate, 'dd/MM/yyyy');
   }, [selectedDate])
   const dayDate = useMemo(
     () => String(selectedDate.getDate()).padStart(2, '0'), [selectedDate]
@@ -98,6 +108,16 @@ const Dashboard: React.FC = () => {
       setMonthAvailability(response.data);
     })
   }, [currentMonth, user.id])
+
+  useEffect(() => {
+    api.get('/appointments/me', {
+      params: {
+        year: selectedDate.getFullYear(),
+        month: selectedDate.getMonth() + 1,
+        day: selectedDate.getDate(),
+      }
+    })
+  }, [selectedDate])
 
   return (
     <Container>
