@@ -47,9 +47,6 @@ const Dashboard: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailability[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [nextAppointment, setNextAppointment] = useState<Appointment>({} as Appointment);
-  const [morningAppointments, setMorningAppointments] = useState<Appointment[]>([]);
-  const [afternoonAppointments, setAfternoonAppointments] = useState<Appointment[]>([]);
 
   const dayReference = useMemo(() => {
     if(isToday(selectedDate)) {
@@ -128,28 +125,29 @@ const Dashboard: React.FC = () => {
     })
   }, [selectedDate])
 
-  useEffect(() => {
+  const nextAppointment = useMemo(() => {
     const [filteredNextAppointment] = appointments.filter(appointment => {
       const parsedDate = parseISO(appointment.date);
       const now = new Date();
       return getHours(parsedDate) === getHours(now) + 1;
     })
 
-    const filteredMorningAppointments = appointments.filter(appointment => {
+    return filteredNextAppointment;
+  }, [appointments]);
+
+  const morningAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
       const parsedDate = parseISO(appointment.date)
       return getHours(parsedDate) <= 12;
     })
+  }, [appointments]);
 
-    const filteredAfternoonAppointments = appointments.filter(appointment => {
+  const afternoonAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
       const parsedDate = parseISO(appointment.date)
       return getHours(parsedDate) > 12;
     })
-
-    setNextAppointment(filteredNextAppointment);
-    setMorningAppointments(filteredMorningAppointments);
-    setAfternoonAppointments(filteredAfternoonAppointments);
-
-  }, [appointments])
+  }, [appointments]);
 
   return (
     <Container>
