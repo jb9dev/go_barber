@@ -18,3 +18,5 @@ export const colors = {
   red: '#c53030',
   blackHighTransparence: rgba(0, 0, 0, 0.2),
 };
+
+export const defaultTransition = '300ms ease-in-out';
