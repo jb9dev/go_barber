@@ -1,8 +1,19 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
+import { FiArrowLeft } from 'react-icons/fi'
 
 import { colors } from '../../styles/variables';
 
-const { dark2, darkGrey, light, light2, lightGrey,  primary } = colors;
+const {
+  dark,
+  dark2,
+  darkGrey,
+  grey,
+  light,
+  light2,
+  lightGrey,
+  primary
+} = colors;
 
 export const Container = styled.div``;
 
@@ -206,4 +217,79 @@ export const Appointment = styled.div`
 
 export const Calendar = styled.aside`
   width: 380px;
+
+  .DayPicker {
+    width: 100%;
+    background: ${dark2};
+    border-radius: 10px;
+
+    &:not(.DayPicker--interactionDisabled)
+      .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+      background: ${shade(0.2, darkGrey)};
+    }
+
+    &-wrapper {
+      padding-bottom: 0;
+    }
+
+    &-NavBar {
+      .DayPicker-NavButton {
+        top: 17px;
+        margin-top: 0;
+
+        &--prev {
+          left: 20px;
+        }
+      }
+    }
+
+    &-Caption {
+      padding: 15px;
+      background-color: ${darkGrey};
+      border-radius: 10px 10px 0 0;
+
+      > div {
+        text-align: center;
+      }
+    }
+
+    &-Day {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+
+      &:not(.DayPicker-Day--outside):not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected) {
+        background-color: ${darkGrey};
+      }
+
+      &--today.DayPicker-Day--available {
+        color: ${dark};
+        font-weight: normal;
+      }
+
+      &--disabled {
+        color: ${grey};
+        background: transparent;
+      }
+
+      &--selected {
+        color: ${dark};
+        background-color: ${primary};
+
+        &:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+          color: ${dark};
+          background-color: ${primary};
+        }
+      }
+    }
+
+    &-Month {
+      width: 100%;
+      margin: 0;
+      margin-bottom: 8px;
+      border-collapse: separate;
+      border-spacing: 8px;
+    }
+  }
 `;
