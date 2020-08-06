@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
   }, [])
 
   const getAppointmentTime = useCallback((date: string) => {
-    return `${getHours(parseISO(date))}:${String(getMinutes(parseISO(date))).padStart(2, '0')}`
+    return format(parseISO(date), 'HH:mm');
   }, [])
 
   useEffect(() => {
