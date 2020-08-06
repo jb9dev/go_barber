@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -22,7 +22,6 @@ interface ForgotPasswordFormData {
 
 const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
 
@@ -65,7 +64,7 @@ const ForgotPassword: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [addToast, history]);
+  }, [addToast]);
 
   return (
     <Container>

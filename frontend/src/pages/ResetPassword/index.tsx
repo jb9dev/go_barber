@@ -22,10 +22,6 @@ interface ResetPasswordFormData {
   password_confirmation: string;
 }
 
-// interface QueryMap {
-//   [key: string]: string;
-// }
-
 const ResetPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
@@ -81,7 +77,7 @@ const ResetPassword: React.FC = () => {
         description: 'Ocorreu um erro ao resetar sua senha, por favor tente novamente',
       })
     }
-  }, [addToast, history, queryMap, location.search]);
+  }, [addToast, history, location.search]);
 
   return (
     <Container>

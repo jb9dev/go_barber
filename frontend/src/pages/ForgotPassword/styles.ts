@@ -5,7 +5,7 @@ import { colors } from '../../styles/variables';
 
 import Background from '../../assets/sign-in-background.png';
 
-const { primary, light2 } = colors;
+const { light2 } = colors;
 
 const appearFromLeft = keyframes`
   from {
