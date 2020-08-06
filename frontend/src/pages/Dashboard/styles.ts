@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
 import { colors } from '../../styles/variables';
+
+interface CalendarProps {
+  weekDay: string;
+}
 
 const {
   dark,
@@ -214,8 +218,57 @@ export const Appointment = styled.div`
   }
 `;
 
-export const Calendar = styled.aside`
+export const Calendar = styled.aside<CalendarProps>`
   width: 380px;
+
+  ${(props) => {
+    switch(props.weekDay) {
+      case 'Domingo':
+        return css`
+          .DayPicker-Weekday [title="Sunday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Segunda-feira':
+        return css`
+          .DayPicker-Weekday [title="Monday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Terça-feira':
+        return css`
+          .DayPicker-Weekday [title="Tuesday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Quarta-feira':
+        return css`
+          .DayPicker-Weekday [title="Wednesday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Quinta-feira':
+        return css`
+          .DayPicker-Weekday [title="Thursday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Sexta-feira':
+        return css`
+          .DayPicker-Weekday [title="Friday"] {
+            color: ${primary};
+          }
+        `;
+      case 'Sábado':
+        return css`
+          .DayPicker-Weekday [title="Saturday"] {
+            color: ${primary};
+          }
+        `;
+      default:
+        return;
+    }
+  }}
 
   .DayPicker {
     width: 100%;
