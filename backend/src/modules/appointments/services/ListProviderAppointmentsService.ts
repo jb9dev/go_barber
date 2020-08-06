@@ -46,7 +46,19 @@ class ListProviderAppointmentsService {
         },
       );
 
-      await this.cacheProvider.save(cacheKey, classToClass(appointments));
+      const sortedAppointments = appointments.sort((a, b) => {
+        if (new Date(a.date) > new Date(b.date)) {
+          return 1;
+        }
+
+        if (new Date(a.date) < new Date(b.date)) {
+          return -1;
+        }
+
+        return 0;
+      });
+
+      await this.cacheProvider.save(cacheKey, classToClass(sortedAppointments));
     }
 
     return classToClass(appointments);
