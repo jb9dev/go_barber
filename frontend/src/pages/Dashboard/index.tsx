@@ -204,6 +204,13 @@ const Dashboard: React.FC = () => {
               : <React.Fragment />
           }
           {
+            !morningAppointments.length
+              && !afternoonAppointments.length
+                && <Section>
+                    <strong>Não há agendamentos para este dia</strong>
+                  </Section>
+          }
+          {
             morningAppointments.length
             ? <Section>
                 <strong>Manhã</strong>
