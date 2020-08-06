@@ -346,8 +346,13 @@ export const Calendar = styled.aside<CalendarProps>`
       }
 
       &--today.DayPicker-Day--available {
-        color: ${dark};
         font-weight: normal;
+
+        &:not(.DayPicker-Day--selected) {
+          color: ${light};
+          font-weight: 500;
+          background-color: ${darkGrey};
+        }
       }
 
       &--disabled {
