@@ -8,6 +8,7 @@ export interface ToastMessage {
   type?: 'info' | 'success' | 'error';
   title: string;
   description?: string;
+  timeout?: number;
 }
 
 interface ToastContextData {
