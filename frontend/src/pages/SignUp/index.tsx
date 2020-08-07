@@ -22,7 +22,7 @@ interface SignUpFromData {
   password: string;
 }
 
-const SingUp: React.FC = () => {
+const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { signUp } = useAuth();
   const { addToast } = useToast();
@@ -113,4 +113,4 @@ const SingUp: React.FC = () => {
   );
 };
 
-export default SingUp;
+export default SignUp;
