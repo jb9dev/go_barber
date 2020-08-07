@@ -104,6 +104,11 @@ export const Body = styled.main`
   display: flex;
   max-width: 1120px;
   margin: 64px auto;
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 20px;
+    flex-direction: column-reverse;
+  }
 `;
 
 export const Schedule = styled.div`
