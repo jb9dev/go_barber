@@ -38,7 +38,6 @@ const SingIn: React.FC = () => {
         abortEarly: false
       });
 
-      console.log('data: ', data)
       await signIn(data);
       formRef.current?.reset();
       history.push('/dashboard');
