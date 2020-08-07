@@ -11,13 +11,13 @@ import { ToastMessage, useToast } from '../../../hooks/toast'
 
 interface ToastProps {
   message: ToastMessage;
-  timeout?: number;
+  toastTimeout?: number;
   style: object;
 }
 
 const Toast: React.FC<ToastProps> = ({
-  message: { id, type, title, description },
-  timeout = 3000,
+  message: { id, type, title, description, timeout },
+  toastTimeout = timeout || 3000,
   style,
 }) => {
   const { removeToast } = useToast();
@@ -31,10 +31,10 @@ const Toast: React.FC<ToastProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       removeToast(id)
-    }, timeout)
+    }, toastTimeout)
 
     return () => clearTimeout(timer);
-  },[removeToast, id, timeout]);
+  },[removeToast, id, toastTimeout]);
 
 
   return (
