@@ -54,19 +54,6 @@ export const AnimationContainer = styled.div`
     text-align: center;
     font-weight: 500;
   }
-
-  a.forgot-password {
-    display: block;
-    margin-top: 30px;
-    color: ${light2};
-    text-align: center;
-    text-decoration: none;
-    transition: color 200ms ease-in;
-
-    &:hover {
-      color: ${shade(0.2, light2)};
-    }
-  }
 }
 
 a.back-to-logon {
