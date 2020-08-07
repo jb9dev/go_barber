@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
         <Logout name="power" size={30} />
       </TouchableOpacity>
     </Container>
-  )
+  );
 };
 
 export default Dashboard;
