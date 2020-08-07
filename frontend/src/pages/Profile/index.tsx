@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -26,6 +26,7 @@ interface ProfileFromData {
 
 const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
   const { addToast } = useToast();
   const { user, updateUser } = useAuth();
 
@@ -53,7 +54,7 @@ const Profile: React.FC = () => {
           });
         });
       }
-    }, [addToast]
+    }, [addToast, updateUser]
   );
 
   const handleSubmit = useCallback( async (data: ProfileFromData) => {
@@ -64,20 +65,58 @@ const Profile: React.FC = () => {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome é obrigatório'),
         email: Yup.string().required('E-mail é obrigatório'),
-        password: Yup.string().min(6, 'Mínimo 6 caracteres'),
+        old_password: Yup.string(),
+        password: Yup.string().when('old_password', {
+          is: val => !!val.length,
+          then: Yup.string().min(6, 'Mínimo 6 caracteres'),
+          otherwise: Yup.string(),
+        }),
+        password_confirmation: Yup.string().when('old_password', {
+          is: val => !!val.length,
+          then: Yup.string().min(6, 'Mínimo 6 caracteres'),
+          otherwise: Yup.string(),
+        }).oneOf([Yup.ref('password'), undefined], 'As senhas precisam coincidir'),
       })
 
       await schema.validate(data, {
         abortEarly: false,
       });
 
-      formRef.current?.reset();
+      const {
+        name,
+        email,
+        old_password,
+        password,
+        password_confirmation,
+      } = data;
 
-      addToast({
-        type: 'success',
-        title: 'Perfil alterado com sucesso!',
-      });
+      const formData = {
+        name,
+        email,
+        ...(old_password
+            ? { old_password, password, password_confirmation}
+            : {}
+          )
+        };
 
+      try {
+        const response = await api.put('/profile', formData);
+        updateUser(response.data);
+        history.push('/dashboard');
+        addToast({
+          type: 'success',
+          title: 'Perfil alterado com sucesso!',
+        });
+
+      } catch(error) {
+        console.error(error);
+        addToast({
+          type: 'error',
+          title: 'Erro ao tentar atualizar o perfil!',
+          description: 'Ocorreu um erro ao tentar atualizar o perfil, por favor tente novamente!',
+          timeout: 5000,
+        });
+      }
     } catch(err) {
       console.error(err)
       if(err instanceof Yup.ValidationError) {
