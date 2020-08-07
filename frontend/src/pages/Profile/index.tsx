@@ -131,7 +131,7 @@ const Profile: React.FC = () => {
         description: 'Ocorreu um erro ao tentar atualizar o perfil, por favor tente novamente!'
       });
     }
-  }, [addToast]);
+  }, [addToast, history, updateUser]);
 
   return (
     <Container>
