@@ -1,23 +1,36 @@
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/Feather';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../globalVariables';
 
-const { light2 } = colors;
+const { dark2, light2, primary } = colors;
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
 `;
 
-export const Title = styled.Text`
+export const Header = styled.View`
+  padding: 24px;
+  padding-top: ${getStatusBarHeight() + 24}px;
+  background-color: ${dark2};
+`;
+
+export const HeaderTitle = styled.Text`
+  font-family: ${fontFamilies.regular};
+  font-size: 20px;
+  color: ${light2};
+  line-height: 28px;
+`;
+
+export const UserName = styled.Text`
   font-family: ${fontFamilies.medium};
-  font-size: 30px;
-  color: ${light2};
+  color: ${primary};
 `;
 
-export const Logout = styled(Icon)`
-  margin-top: 15px;
-  color: ${light2};
+export const ProfileButton = styled.TouchableOpacity``;
+
+export const UserAvatar = styled.Image`
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
 `;
