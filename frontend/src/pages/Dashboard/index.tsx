@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isToday, isTomorrow, format, getHours, parseISO } from 'date-fns';
+import { isToday, isTomorrow, format, getHours, parseISO, isAfter } from 'date-fns';
 import { FiPower, FiClock, FiCamera } from 'react-icons/fi';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -126,10 +126,11 @@ const Dashboard: React.FC = () => {
   }, [selectedDate])
 
   const nextAppointment = useMemo(() => {
+    const now = new Date();
+
     const [filteredNextAppointment] = appointments.filter(appointment => {
       const parsedDate = parseISO(appointment.date);
-      const now = new Date();
-      return getHours(parsedDate) === getHours(now) + 1;
+      return isAfter(parsedDate, now);
     })
 
     return filteredNextAppointment;
