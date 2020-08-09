@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../globalVariables';
-import { Provider } from './index';
+import Provider from '../../interfaces/Provider';
 
 export const Container = styled.View`
   flex: 1;

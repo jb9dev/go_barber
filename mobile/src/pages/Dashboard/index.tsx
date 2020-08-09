@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
+import Provider from '../../interfaces/Provider';
 
 import { colors } from '../../globalVariables';
 
@@ -24,12 +25,6 @@ import {
   ProviderMeta,
   ProviderMetaText,
 } from './styles';
-
-export interface Provider {
-  id: string;
-  name: string;
-  avatar_url: string;
-}
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
