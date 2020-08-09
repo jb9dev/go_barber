@@ -4,8 +4,6 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../globalVariables';
 
-const { dark, light2, secondary } = colors;
-
 export const Container = styled.View`
   flex: 1;
   margin-bottom: ${Platform.OS === 'android' ? 150 : 40}px;
@@ -18,7 +16,7 @@ export const Title = styled.Text`
   margin: 64px 0 16px;
   font-family: ${fontFamilies.medium};
   font-size: 25px;
-  color: ${light2};
+  color: ${colors.light2};
 `;
 
 export const GoBack = styled.TouchableOpacity`
@@ -30,14 +28,14 @@ export const GoBack = styled.TouchableOpacity`
   padding: 16px 0 ${16 + getBottomSpace()}px;
   justify-content: center;
   align-items: center;
-  background-color: ${secondary};
+  background-color: ${colors.secondary};
   border-top-width: 1px;
-  border-top-color: ${dark};
+  border-top-color: ${colors.dark};
 `;
 
 export const GoBackText = styled.Text`
   margin-left: 16px;
   font-family: ${fontFamilies.medium};
   font-size: 16px;
-  color: ${light2};
+  color: ${colors.light2};
 `;

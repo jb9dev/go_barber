@@ -6,7 +6,7 @@ import {
   Platform,
   TextInput,
   ScrollView,
-  View
+  View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -18,7 +18,7 @@ import { useAuth } from '../../hooks/auth';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.png'
+import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -30,7 +30,7 @@ import {
   ForgotPassword,
   ForgotPasswordText,
   CreateAccount,
-  CreateAccoutText
+  CreateAccoutText,
 } from './styles';
 
 interface SignInFormData {
@@ -44,41 +44,45 @@ const SignIn: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const { signIn } = useAuth();
 
-  const handleSignIn = useCallback( async (data: SignInFormData) => {
+  const handleSignIn = useCallback(async (data: SignInFormData) => {
     try {
       const schema = Yup.object().shape({
-        email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
-        password: Yup.string().min(6, 'Mínimo de 6 caracteres')
+        email: Yup.string()
+          .required('E-mail é obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'Mínimo de 6 caracteres'),
       });
 
       await schema.validate(data, {
-        abortEarly: false
+        abortEarly: false,
       });
 
       await signIn(data);
       formRef.current?.reset();
-    } catch(err) {
-      if(err instanceof Yup.ValidationError) {
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         const errorMessages = [];
-        for(let error in errors) {
-          errorMessages.push(errors[error])
+        for (const error in errors) {
+          errorMessages.push(errors[error]);
         }
 
         formRef.current?.setErrors(errors);
         Alert.alert(
           'Login inválido!',
-          `Ocorreu um erro ao realizar o login, verifique as credenciais pois: ${errorMessages.join('; ')}.`,
-          [{ text: 'ok', style: 'default' }]
-        )
+          `Ocorreu um erro ao realizar o login, verifique as credenciais pois: ${errorMessages.join(
+            '; ',
+          )}.`,
+          [{ text: 'ok', style: 'default' }],
+        );
         return;
       }
 
       Alert.alert(
         'Login inválido!',
         'Ocorreu um erro ao realizar o login, verifique suas credenciais.',
-        [{ text: 'ok', style: 'default' }]
-      )
+        [{ text: 'ok', style: 'default' }],
+      );
     }
   }, []);
 
@@ -91,9 +95,9 @@ const SignIn: React.FC = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <KeyboardAvoidingView
-        style={{ flex: 1}}
+        style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         enabled
       >
@@ -103,7 +107,9 @@ const SignIn: React.FC = () => {
         >
           <Container>
             <Image source={logoImg} />
-            <View><Title>Faça o seu logon</Title></View>
+            <View>
+              <Title>Faça o seu logon</Title>
+            </View>
             <Form ref={formRef} onSubmit={handleSignIn}>
               <Input
                 keyboardType="email-address"
@@ -138,7 +144,7 @@ const SignIn: React.FC = () => {
         <Icon name="log-in" size={20} color={colors.primary} />
         <CreateAccoutText>Criar uma conta</CreateAccoutText>
       </CreateAccount>
-    </React.Fragment>
+    </>
   );
 };
 

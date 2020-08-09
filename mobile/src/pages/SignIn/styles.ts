@@ -4,11 +4,9 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { colors, fontFamilies } from '../../globalVariables';
 
-const { dark, light2, primary, secondary } = colors;
-
 export const Container = styled.View`
   flex: 1;
-  margin-bottom: ${Platform.OS === 'android' ? 150 : 40}px;
+  margin-bottom: ${Platform.OS === 'android' ? 130 : 40}px;
   padding: 0 20px;
   align-items: center;
   justify-content: center;
@@ -18,7 +16,7 @@ export const Title = styled.Text`
   margin: 64px 0 16px;
   font-family: ${fontFamilies.medium};
   font-size: 25px;
-  color: ${light2};
+  color: ${colors.light2};
 `;
 
 export const ForgotPassword = styled.TouchableOpacity`
@@ -29,7 +27,7 @@ export const ForgotPassword = styled.TouchableOpacity`
 export const ForgotPasswordText = styled.Text`
   font-family: ${fontFamilies.medium};
   font-size: 16px;
-  color: ${light2};
+  color: ${colors.light2};
 `;
 
 export const CreateAccount = styled.TouchableOpacity`
@@ -41,14 +39,14 @@ export const CreateAccount = styled.TouchableOpacity`
   padding: 16px 0 ${16 + getBottomSpace()}px;
   justify-content: center;
   align-items: center;
-  background-color: ${secondary};
+  background-color: ${colors.secondary};
   border-top-width: 1px;
-  border-top-color: ${dark};
+  border-top-color: ${colors.dark};
 `;
 
 export const CreateAccoutText = styled.Text`
   margin-left: 16px;
   font-family: ${fontFamilies.medium};
   font-size: 16px;
-  color: ${primary};
+  color: ${colors.primary};
 `;

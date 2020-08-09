@@ -1,4 +1,4 @@
-import styled,  { css } from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import { colors, fontFamilies } from '../../globalVariables';
@@ -8,8 +8,6 @@ interface ContainerProps {
   hasError: boolean;
 }
 
-const { dark, grey, light2, primary, red } = colors;
-
 export const Container = styled.View<ContainerProps>`
   flex-direction: row;
   width: 100%;
@@ -18,18 +16,22 @@ export const Container = styled.View<ContainerProps>`
   padding: 0 16px;
   justify-content: center;
   align-items: center;
-  background-color: ${dark};
+  background-color: ${colors.dark};
   border-width: 1px;
-  border-color: ${dark};
+  border-color: ${colors.dark};
   border-radius: 6px;
 
-  ${(props) => props.hasError && css`
-    border-color: ${red};
-  `}
+  ${(props) =>
+    props.hasError &&
+    css`
+      border-color: ${colors.red};
+    `}
 
-  ${(props) => props.isFocused && css`
-    border-color: ${primary};
-  `}
+  ${(props) =>
+    props.isFocused &&
+    css`
+      border-color: ${colors.primary};
+    `}
 `;
 
 export const Icon = styled(FeatherIcon)`
@@ -40,5 +42,5 @@ export const InputText = styled.TextInput`
   flex: 1;
   font-family: ${fontFamilies.regular};
   font-size: 16px;
-  color: ${light2};
+  color: ${colors.light2};
 `;
