@@ -1,12 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+
+import { useAuth } from '../../hooks/auth';
 
 import { Container, Title } from './styles';
 
 const Profile: React.FC = () => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
-      <Title>Profile</Title>
+      <TouchableOpacity onPress={signOut}>
+        <Title>Profile</Title>
+      </TouchableOpacity>
     </Container>
   );
 };
