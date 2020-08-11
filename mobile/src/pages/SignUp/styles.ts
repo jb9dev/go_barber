@@ -14,7 +14,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   margin: 64px 0 16px;
-  font-family: ${fontFamilies.medium};
+  font-family: ${fontFamilies.robotoMedium};
   font-size: 25px;
   color: ${colors.light2};
 `;
@@ -35,7 +35,7 @@ export const GoBack = styled.TouchableOpacity`
 
 export const GoBackText = styled.Text`
   margin-left: 16px;
-  font-family: ${fontFamilies.medium};
+  font-family: ${fontFamilies.robotoMedium};
   font-size: 16px;
   color: ${colors.light2};
 `;

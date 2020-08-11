@@ -19,14 +19,14 @@ export const Header = styled.View`
 `;
 
 export const HeaderTitle = styled.Text`
-  font-family: ${fontFamilies.regular};
+  font-family: ${fontFamilies.robotoRegular};
   font-size: 20px;
   color: ${colors.light2};
   line-height: 28px;
 `;
 
 export const UserName = styled.Text`
-  font-family: ${fontFamilies.medium};
+  font-family: ${fontFamilies.robotoMedium};
   color: ${colors.primary};
 `;
 
@@ -44,7 +44,7 @@ export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
 
 export const ProvidersListTitle = styled.Text`
   margin-bottom: 24px;
-  font-family: ${fontFamilies.medium};
+  font-family: ${fontFamilies.robotoMedium};
   font-size: 24px;
   color: ${colors.light2};
 `;
@@ -80,7 +80,7 @@ export const ProviderInfo = styled.View`
 `;
 
 export const ProviderName = styled.Text`
-  font-family: ${fontFamilies.medium};
+  font-family: ${fontFamilies.robotoMedium};
   font-size: 20px;
   color: ${colors.light2};
 `;
@@ -93,6 +93,6 @@ export const ProviderMeta = styled.View`
 
 export const ProviderMetaText = styled.Text`
   margin-left: 8px;
-  font-family: ${fontFamilies.regular};
+  font-family: ${fontFamilies.robotoRegular};
   color: ${colors.lightGrey};
 `;

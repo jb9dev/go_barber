@@ -40,7 +40,7 @@ export const Icon = styled(FeatherIcon)`
 
 export const InputText = styled.TextInput`
   flex: 1;
-  font-family: ${fontFamilies.regular};
+  font-family: ${fontFamilies.robotoRegular};
   font-size: 16px;
   color: ${colors.light2};
 `;
