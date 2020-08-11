@@ -91,7 +91,23 @@ export const ProviderName = styled.Text<ProviderNameProps>`
 export const Calendar = styled.View``;
 
 export const Title = styled.Text`
+  margin: 0 24px 24px 24px;
   font-family: ${fontFamilies.medium};
-  font-size: 32px;
+  font-size: 24px;
   color: ${colors.light2};
+`;
+
+export const OpenDatePickerButton = styled(RectButton)`
+  height: 46px;
+  margin: 0 24px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.primary};
+  border-radius: 10px;
+`;
+
+export const OpenDatePickerButtonText = styled.Text`
+  font-family: ${fontFamilies.medium};
+  font-size: 16px;
+  color: ${colors.dark};
 `;
