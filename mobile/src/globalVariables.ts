@@ -20,6 +20,6 @@ export const colors = {
 };
 
 export const fontFamilies = {
-  regular: 'RobotoSlab-Regular',
-  medium: 'RobotoSlab-Medium',
+  robotoRegular: 'RobotoSlab-Regular',
+  robotoMedium: 'RobotoSlab-Medium',
 };
