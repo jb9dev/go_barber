@@ -11,16 +11,18 @@ import { colors } from '../globalVariables';
 const Routes: React.FC = () => {
   const { user, loading } = useAuth();
 
-  if(loading) {
+  if (loading) {
     return (
-      <View style={{
-        backgroundColor: `${colors.secondary}`,
-        flex: 1,
-        justifyContent: 'center'
-      }}>
+      <View
+        style={{
+          backgroundColor: `${colors.secondary}`,
+          flex: 1,
+          justifyContent: 'center',
+        }}
+      >
         <ActivityIndicator size="large" />
       </View>
-    )
+    );
   }
 
   return user ? <AppRoutes /> : <AuthRoutes />;
