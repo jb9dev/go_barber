@@ -32,9 +32,18 @@ const Dashboard: React.FC = () => {
   const { navigate } = useNavigation();
 
   useEffect(() => {
-    api.get('/providers').then((response) => {
-      setProviders(response.data);
-    });
+    api
+      .get('/providers')
+      .then((response) => {
+        setProviders(response.data);
+      })
+      .catch((error) => {
+        console.log('error.code: ', error.code);
+
+        if (error.code === 401) {
+          signOut();
+        }
+      });
   }, []);
 
   const navigateToProfile = useCallback(() => {
