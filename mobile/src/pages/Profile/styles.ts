@@ -24,9 +24,27 @@ export const AvatarImage = styled.Image`
   border-radius: 98px;
 `;
 
+export const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Title = styled.Text`
   margin: 24px 0;
   font-family: ${fontFamilies.robotoMedium};
   font-size: 20px;
+  color: ${colors.light2};
+`;
+
+export const SignOutButton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const SignOutButtonText = styled.Text`
+  margin-left: 10px;
+  font-size: 18px;
   color: ${colors.light2};
 `;

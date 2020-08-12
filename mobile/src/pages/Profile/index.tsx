@@ -31,7 +31,10 @@ import {
   BackButton,
   AvatarImageButton,
   AvatarImage,
+  TitleContainer,
   Title,
+  SignOutButton,
+  SignOutButtonText,
 } from './styles';
 
 interface ProfileFromData {
@@ -49,7 +52,7 @@ const Profile: React.FC = () => {
   const oldPasswordInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const passwordConfirmationInputRef = useRef<TextInput>(null);
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const handleGoBack = useCallback(() => {
     goBack();
@@ -102,6 +105,10 @@ const Profile: React.FC = () => {
       },
     );
   }, [user.id, updateUser]);
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+  }, [signOut]);
 
   const handleProfile = useCallback(
     async (data: ProfileFromData) => {
@@ -200,9 +207,13 @@ const Profile: React.FC = () => {
           <AvatarImageButton onPress={handleUpdateAvatar}>
             <AvatarImage source={{ uri: user.avatar_url }} />
           </AvatarImageButton>
-          <View>
+          <TitleContainer>
             <Title>Meu perfil</Title>
-          </View>
+            <SignOutButton onPress={handleSignOut}>
+              <Icon name="log-out" size={24} color={colors.light2} />
+              <SignOutButtonText>Sair</SignOutButtonText>
+            </SignOutButton>
+          </TitleContainer>
           <Form ref={formRef} initialData={user} onSubmit={handleProfile}>
             <Input
               autoCapitalize="words"
