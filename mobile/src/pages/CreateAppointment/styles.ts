@@ -39,7 +39,7 @@ export const HeaderTitle = styled.Text`
   color: ${colors.light2};
 `;
 
-export const UserAvatarContainer = styled.View`
+export const UserAvatarContainer = styled.TouchableOpacity`
   width: 58px;
   height: 58px;
   margin-left: auto;
