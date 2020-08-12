@@ -16,6 +16,7 @@ import { colors } from '../../globalVariables';
 interface InputProps extends TextInputProps {
   name: string;
   icon: string;
+  containerStyle?: Record<string, unknown>;
 }
 
 interface InputValueReference {
@@ -27,7 +28,7 @@ interface InputRef {
 }
 
 const Input: React.RefForwardingComponent<InputRef, InputProps> = (
-  { name, icon, placeholder, ...rest },
+  { name, icon, containerStyle, placeholder, ...rest },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
@@ -68,7 +69,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }, [registerField, fieldName]);
 
   return (
-    <Container isFocused={isFocused} hasError={!!error}>
+    <Container style={containerStyle} isFocused={isFocused} hasError={!!error}>
       <Icon
         name={icon}
         size={20}
