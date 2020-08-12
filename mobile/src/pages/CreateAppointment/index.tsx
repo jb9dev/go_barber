@@ -66,6 +66,10 @@ const CreateAppointment: React.FC = () => {
     goBack();
   }, [goBack]);
 
+  const handleAvatarPressed = useCallback(() => {
+    navigate('Profile');
+  }, [navigate]);
+
   useEffect(() => {
     api.get('/providers').then((response) => {
       setProviders(response.data);
@@ -162,7 +166,7 @@ const CreateAppointment: React.FC = () => {
           <Icon name="chevron-left" size={24} color={colors.lightGrey} />
         </BackButton>
         <HeaderTitle>Cabeleireiros</HeaderTitle>
-        <UserAvatarContainer>
+        <UserAvatarContainer onPress={handleAvatarPressed}>
           {user.avatar_url ? (
             <UserAvatar source={{ uri: user.avatar_url }} />
           ) : (
