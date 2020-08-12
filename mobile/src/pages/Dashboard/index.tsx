@@ -6,20 +6,17 @@ import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import Provider from '../../interfaces/Provider';
 
-import { colors } from '../../globalVariables';
+import Avatar from '../../components/Avatar';
 
+import { colors } from '../../globalVariables';
 import {
   Container,
   Header,
   HeaderTitle,
   UserName,
-  ProfileButton,
-  UserAvatar,
   ProvidersList,
   ProvidersListTitle,
   ProviderContent,
-  ProviderAvatarContainer,
-  ProviderAvatar,
   ProviderInfo,
   ProviderName,
   ProviderMeta,
@@ -38,13 +35,13 @@ const Dashboard: React.FC = () => {
         setProviders(response.data);
       })
       .catch((error) => {
-        console.log('error.code: ', error.code);
+        console.log('error.code: ', error.code); // eslint-disable-line
 
         if (error.code === 401) {
           signOut();
         }
       });
-  }, []);
+  }, [signOut]);
 
   const navigateToProfile = useCallback(() => {
     navigate('Profile');
@@ -65,9 +62,11 @@ const Dashboard: React.FC = () => {
           {'\n'}
           <UserName>{user.name}</UserName>
         </HeaderTitle>
-        <ProfileButton onPress={navigateToProfile}>
-          <UserAvatar source={{ uri: user.avatar_url }} />
-        </ProfileButton>
+        <Avatar
+          callback={navigateToProfile}
+          size={56}
+          imgSrc={user.avatar_url}
+        />
       </Header>
       <ProvidersList
         keyExtractor={(provider) => provider.id}
@@ -79,13 +78,7 @@ const Dashboard: React.FC = () => {
           <ProviderContent
             onPress={() => navigateToCreateAppointment(provider.id)}
           >
-            {provider.avatar_url ? (
-              <ProviderAvatar source={{ uri: provider.avatar_url }} />
-            ) : (
-              <ProviderAvatarContainer>
-                <Icon name="camera" size={20} color={colors.darkGrey} />
-              </ProviderAvatarContainer>
-            )}
+            <Avatar size={72} imgSrc={provider.avatar_url} />
             <ProviderInfo>
               <ProviderName>{provider.name}</ProviderName>
               <ProviderMeta>

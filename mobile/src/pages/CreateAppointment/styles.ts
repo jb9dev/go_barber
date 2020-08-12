@@ -33,26 +33,11 @@ export const Header = styled.View`
 export const BackButton = styled.TouchableOpacity``;
 
 export const HeaderTitle = styled.Text`
+  flex: 1;
   margin-left: 16px;
   font-family: ${fontFamilies.robotoMedium};
   font-size: 20px;
   color: ${colors.light2};
-`;
-
-export const UserAvatarContainer = styled.TouchableOpacity`
-  width: 58px;
-  height: 58px;
-  margin-left: auto;
-  align-items: center;
-  justify-content: center;
-  background-color: ${colors.lightGrey};
-  border-radius: 29px;
-`;
-
-export const UserAvatar = styled.Image`
-  width: 58px;
-  height: 58px;
-  border-radius: 29px;
 `;
 
 export const Content = styled.ScrollView``;
@@ -75,19 +60,7 @@ export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`
     props.selected ? colors.primary : colors.dark2};
   border-radius: 10px;
 `;
-export const ProviderAvatarContainer = styled.View`
-  width: 32px;
-  height: 32px;
-  align-items: center;
-  justify-content: center;
-  background-color: ${colors.lightGrey};
-  border-radius: 16px;
-`;
-export const ProviderAvatar = styled.Image`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-`;
+
 export const ProviderName = styled.Text<ProviderNameProps>`
   margin-left: 8px;
   font-family: ${fontFamilies.robotoMedium};

@@ -5,7 +5,6 @@ import {
   Platform,
   TextInput,
   ScrollView,
-  View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -21,6 +20,7 @@ import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import getValidationErrors from '../../utils/getValidationErrors';
 
+import Avatar from '../../components/Avatar';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -29,8 +29,6 @@ import { colors } from '../../globalVariables';
 import {
   Container,
   BackButton,
-  AvatarImageButton,
-  AvatarImage,
   TitleContainer,
   Title,
   SignOutButton,
@@ -204,9 +202,11 @@ const Profile: React.FC = () => {
           <BackButton onPress={handleGoBack}>
             <Icon name="chevron-left" size={24} color={colors.lightGrey} />
           </BackButton>
-          <AvatarImageButton onPress={handleUpdateAvatar}>
-            <AvatarImage source={{ uri: user.avatar_url }} />
-          </AvatarImageButton>
+          <Avatar
+            callback={handleUpdateAvatar}
+            imgSrc={user.avatar_url}
+            size={186}
+          />
           <TitleContainer>
             <Title>Meu perfil</Title>
             <SignOutButton onPress={handleSignOut}>

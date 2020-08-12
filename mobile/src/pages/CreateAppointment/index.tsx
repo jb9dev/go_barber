@@ -9,21 +9,18 @@ import { useAuth } from '../../hooks/auth';
 import Provider from '../../interfaces/Provider';
 import api from '../../services/api';
 
-import { colors } from '../../globalVariables';
+import Avatar from '../../components/Avatar';
 
+import { colors } from '../../globalVariables';
 import {
   Container,
   Header,
   BackButton,
   HeaderTitle,
-  UserAvatar,
-  UserAvatarContainer,
   Content,
   ProvidersListContainer,
   ProvidersList,
   ProviderContainer,
-  ProviderAvatarContainer,
-  ProviderAvatar,
   ProviderName,
   Calendar,
   Title,
@@ -166,13 +163,11 @@ const CreateAppointment: React.FC = () => {
           <Icon name="chevron-left" size={24} color={colors.lightGrey} />
         </BackButton>
         <HeaderTitle>Cabeleireiros</HeaderTitle>
-        <UserAvatarContainer onPress={handleAvatarPressed}>
-          {user.avatar_url ? (
-            <UserAvatar source={{ uri: user.avatar_url }} />
-          ) : (
-            <Icon name="camera" size={24} color={colors.darkGrey} />
-          )}
-        </UserAvatarContainer>
+        <Avatar
+          callback={handleAvatarPressed}
+          size={58}
+          imgSrc={user.avatar_url}
+        />
       </Header>
       <Content>
         <ProvidersListContainer>
@@ -186,13 +181,7 @@ const CreateAppointment: React.FC = () => {
                 onPress={() => handleSelectProvider(provider.id)}
                 selected={selectedProvider === provider.id}
               >
-                <ProviderAvatarContainer>
-                  {provider.avatar_url ? (
-                    <ProviderAvatar source={{ uri: provider.avatar_url }} />
-                  ) : (
-                    <Icon name="camera" size={16} color={colors.darkGrey} />
-                  )}
-                </ProviderAvatarContainer>
+                <Avatar size={32} imgSrc={provider.avatar_url} />
                 <ProviderName selected={selectedProvider === provider.id}>
                   {provider.name}
                 </ProviderName>
