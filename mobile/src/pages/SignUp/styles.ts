@@ -6,6 +6,7 @@ import { colors, fontFamilies } from '../../globalVariables';
 
 export const Container = styled.View`
   flex: 1;
+  margin-top: 40px;
   margin-bottom: ${Platform.OS === 'android' ? 150 : 40}px;
   padding: 20px;
   align-items: center;
