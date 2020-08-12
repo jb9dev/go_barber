@@ -41,7 +41,7 @@ class UpdateUserAvatarService {
     const fileName = await this.storageProvider.saveFile(avatar_filename);
     user.avatar = fileName;
     await this.usersRepository.save(user);
-    await this.cacheProvider.invalidate(`list-providers:${user.id}`);
+    await this.cacheProvider.invalidatePrefix('list-providers');
 
     return user;
   }
