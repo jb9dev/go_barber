@@ -29,6 +29,18 @@ class ListProvidersService {
         except_user_id: user_id,
       });
 
+      users.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+
+        if (a.name < b.name) {
+          return -1;
+        }
+
+        return 0;
+      });
+
       await this.cacheProvider.save(cacheKey, classToClass(users));
     }
 
