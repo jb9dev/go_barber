@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -18,6 +19,9 @@ class UpdateUserAvatarService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -37,6 +41,7 @@ class UpdateUserAvatarService {
     const fileName = await this.storageProvider.saveFile(avatar_filename);
     user.avatar = fileName;
     await this.usersRepository.save(user);
+    await this.cacheProvider.invalidate(`list-providers:${user.id}`);
 
     return user;
   }
