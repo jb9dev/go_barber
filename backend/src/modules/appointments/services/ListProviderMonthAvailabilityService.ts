@@ -36,7 +36,7 @@ class ListProviderMonthAvailabilityService {
       },
     );
 
-    const today = new Date();
+    const today = new Date(Date.now());
     const daysInMonth = getDaysInMonth(new Date(year, month - 1));
     const daysInMonthArray = Array.from(
       { length: daysInMonth },
