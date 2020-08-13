@@ -34,63 +34,67 @@ interface SignUpFromData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const navigation = useNavigation();
+  const { navigate, goBack } = useNavigation();
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleSignUp = useCallback(async (data: SignUpFromData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSignUp = useCallback(
+    async (data: SignUpFromData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome é obrigatório'),
-        email: Yup.string()
-          .required('E-mail é obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().min(6, 'Mínimo 6 caracteres'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome é obrigatório'),
+          email: Yup.string()
+            .required('E-mail é obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().min(
+            6,
+            'Digite uma senha com no mínimo 6 caracteres',
+          ),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      await api.post('/users', data);
-      console.log('data: ', data);
-      Alert.alert(
-        'Cadastrado com sucesso!',
-        'Você já pode realizar o seu logon no GoBarber!',
-        [{ text: 'ok', style: 'default' }],
-      );
+        await api.post('/users', data);
+        Alert.alert(
+          'Cadastrado com sucesso!',
+          'Você já pode realizar o seu logon no GoBarber!',
+          [{ text: 'ok', style: 'default' }],
+        );
 
-      formRef.current?.reset();
-      navigation.navigate('SignIn');
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const validationErrors = getValidationErrors(err);
-        formRef.current?.setErrors(validationErrors);
-        const errors = Object.entries(validationErrors);
-        const errorMessages = errors.map((error: string[]) => error[1]);
+        formRef.current?.reset();
+        navigate('SignIn');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const validationErrors = getValidationErrors(err);
+          formRef.current?.setErrors(validationErrors);
+          const errorMessages = Object.values(validationErrors);
+
+          Alert.alert(
+            'Erro ao cadastrar!',
+            `Ocorreu um erro ao realizar o cadastro, por favor tente novamente! Verifique os campos a seguir: ${errorMessages.join(
+              '; ',
+            )}`,
+            [{ text: 'ok', style: 'default' }],
+          );
+          return;
+        }
 
         Alert.alert(
           'Erro ao cadastrar!',
-          `Ocorreu um erro ao realizar o cadastro, por favor tente novamente! Verifique os campos a seguir: ${errorMessages.join(
-            '; ',
-          )}`,
-          [{ text: 'ok', style: 'default' }],
+          'Ocorreu um erro ao realizar o cadastro, por favor tente novamente ou verifique sua conexão com a internet!',
         );
-        return;
       }
-
-      Alert.alert(
-        'Erro ao cadastrar!',
-        'Ocorreu um erro ao realizar o cadastro, por favor tente novamente ou verifique sua conexão com a internet!',
-      );
-    }
-  }, []);
+    },
+    [navigate],
+  );
 
   const handledGoBack = useCallback(() => {
-    navigation.goBack();
-  }, []);
+    goBack();
+  }, [goBack]);
 
   return (
     <>
