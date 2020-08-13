@@ -13,7 +13,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  margin: 64px 0 16px;
+  margin: 40px 0 16px;
   font-family: ${fontFamilies.robotoMedium};
   font-size: 25px;
   color: ${colors.light2};
