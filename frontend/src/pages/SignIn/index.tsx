@@ -30,7 +30,7 @@ const SingIn: React.FC = () => {
   const handleSubmit = useCallback( async (data: SignInFormData) => {
     try {
       const schema = Yup.object().shape({
-        email: Yup.string().required('E-mail é obrigatório'),
+        email: Yup.string().required('E-mail é obrigatório').email('Digite um e-mail válido'),
         password: Yup.string().min(6, 'Mínimo de 6 caracteres')
       });
 
