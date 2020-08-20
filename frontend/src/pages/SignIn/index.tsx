@@ -42,7 +42,6 @@ const SingIn: React.FC = () => {
       formRef.current?.reset();
       history.push('/dashboard');
     } catch(err) {
-      console.error(err);
       if(err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
