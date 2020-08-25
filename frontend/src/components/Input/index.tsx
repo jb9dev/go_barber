@@ -48,6 +48,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon,...props }) => {
       hasError={!!error}
       isFocused={isFocused}
       isFilled={isFilled}
+      data-testid='input-container'
     >
       { Icon && <Icon /> }
       <input
