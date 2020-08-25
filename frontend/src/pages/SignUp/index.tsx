@@ -15,6 +15,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import logoImg from '../../assets/logo.svg';
 
 import { Container, Content, AnimationContainer, BackgroundImg } from './styles';
+import api from '../../services/api';
 
 interface SignUpFromData {
   name: string;
@@ -43,7 +44,7 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
-      await signUp(data);
+      await api.post('users', data);
       formRef.current?.reset();
       history.push('/');
 

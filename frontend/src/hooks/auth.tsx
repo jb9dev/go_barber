@@ -19,16 +19,9 @@ interface SignInCredentials {
   password: string;
 }
 
-interface SignUpCredentials {
-  name: string;
-  email: string;
-  password: string;
-}
-
 interface AuthContextData {
   user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
-  signUp(credentials: SignUpCredentials): Promise<void>;
   signOut(): void;
   updateUser(user: User): void;
 }
@@ -47,10 +40,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
     return {} as AuthState;
   })
-
-  const signUp = useCallback(async ({ name, email, password }) => {
-    await api.post('users', { name, email, password});
-  }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password});
@@ -84,7 +73,6 @@ const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider value={{
       user: data.user,
       signIn,
-      signUp,
       signOut,
       updateUser,
     }}>
@@ -95,10 +83,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
-
-  if(!context) {
-    throw new Error('useAuth must be used within as AuthProvider');
-  }
 
   return context;
 }
