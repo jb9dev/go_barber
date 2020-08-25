@@ -5,7 +5,6 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
 
 import Input from '../../components/Input';
@@ -25,7 +24,6 @@ interface SignUpFromData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signUp } = useAuth();
   const { addToast } = useToast();
   const history = useHistory();
 
@@ -68,7 +66,7 @@ const SignUp: React.FC = () => {
         description: 'Ocorreu um erro ao realizar o cadastro, por favor tente novamente!'
       });
     }
-  }, [signUp, history, addToast]);
+  }, [history, addToast]);
 
   return (
     <Container>
